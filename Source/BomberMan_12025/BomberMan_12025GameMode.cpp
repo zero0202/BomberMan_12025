@@ -311,7 +311,7 @@ void ABomberMan_12025GameMode::ClonarMitadDerechaAHaciaIzquierda()
 }
 ABloque* ABomberMan_12025GameMode::BuscarBloqueEnPosicion(FVector Posicion)
 {
-    for (TActorIterator<ABloque> It(GetWorld()); It; ++It)
+    for (TActorIterator<ABloque> It (GetWorld()); It; ++It)
     {
         if (It->GetActorLocation().Equals(Posicion, 1.0f))
         {

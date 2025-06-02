@@ -314,6 +314,83 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
                 }
                 break;
             }
+			case 4: // Concreto
+            {
+                TArray<AActor*> ConcretoRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueConcreto::StaticClass(), ConcretoRefs);
+                if (ConcretoRefs.Num() > 0)
+                {
+                    ABloqueConcreto* Prototipo = Cast<ABloqueConcreto>(ConcretoRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 5: 
+            {
+                TArray<AActor*> LavaRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueLava::StaticClass(), LavaRefs);
+                if (LavaRefs.Num() > 0)
+                {
+                    ABloqueLava* Prototipo = Cast<ABloqueLava>(LavaRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 6: 
+            {
+                TArray<AActor*> PegajosoRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloquePegajoso::StaticClass(), PegajosoRefs);
+                if (PegajosoRefs.Num() > 0)
+                {
+                    ABloquePegajoso* Prototipo = Cast<ABloquePegajoso>(PegajosoRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 7: 
+            {
+                TArray<AActor*> HieloRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueHielo::StaticClass(), HieloRefs);
+                if (HieloRefs.Num() > 0)
+                {
+                    ABloqueHielo* Prototipo = Cast<ABloqueHielo>(HieloRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 8: 
+            {
+                TArray<AActor*> HongoRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueHongo::StaticClass(), HongoRefs);
+                if (HongoRefs.Num() > 0)
+                {
+                    ABloqueHongo* Prototipo = Cast<ABloqueHongo>(HongoRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 9: 
+            {
+                TArray<AActor*> ArenaRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueArena::StaticClass(), ArenaRefs);
+                if (ArenaRefs.Num() > 0)
+                {
+                    ABloqueArena* Prototipo = Cast<ABloqueArena>(ArenaRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
+            case 10:
+            {
+                TArray<AActor*> ElectricoRefs;
+                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueElectrico::StaticClass(), ElectricoRefs);
+                if (ElectricoRefs.Num() > 0)
+                {
+                    ABloqueElectrico* Prototipo = Cast<ABloqueElectrico>(ElectricoRefs[0]);
+                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                }
+                break;
+            }
             // Puedes añadir más tipos según necesites
             }
 

@@ -24,14 +24,20 @@ public:
 	TArray<ABloque*> BloquesA; // Guarda todos los bloques generados
 	TArray<TArray<int32>> MapaLaberinto;
 	void GenerarMapaDesdeCodigo();
+	 int32 TColumnas;
+    int32 TFilas;
+   
+
 	void GenerarLaberinto();
 
 	//FabricaBloques* GenerarBloques();
 
 	//Para clonar bloques
-	void ClonarMitadDerechaAHaciaIzquierda();
-	ABloque* BuscarBloqueEnPosicion(FVector Posicion);
-	float TamanoCelda = 100.0f;
+	void ClonarBloques(int32 InTFilas, int32 InTColumnas);
+
+	//void ClonarMitadDerechaAHaciaIzquierda();
+	//ABloque* BuscarBloqueEnPosicion(FVector Posicion);
+	float TamanoCelda = 200.0f;
 
 	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;

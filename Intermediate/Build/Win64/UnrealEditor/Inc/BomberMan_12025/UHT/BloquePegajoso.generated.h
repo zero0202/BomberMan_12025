@@ -17,20 +17,21 @@ struct FHitResult;
 #endif
 #define BOMBERMAN_12025_BloquePegajoso_generated_h
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
 	DECLARE_FUNCTION(execOnOverlapBegin);
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_INCLASS_NO_PURE_DECLS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloquePegajoso(); \
 	friend struct Z_Construct_UClass_ABloquePegajoso_Statics; \
 public: \
 	DECLARE_CLASS(ABloquePegajoso, ABloque, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_12025"), NO_API) \
-	DECLARE_SERIALIZER(ABloquePegajoso)
+	DECLARE_SERIALIZER(ABloquePegajoso) \
+	virtual UObject* _getUObject() const override { return const_cast<ABloquePegajoso*>(this); }
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_ENHANCED_CONSTRUCTORS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABloquePegajoso(ABloquePegajoso&&); \
@@ -42,13 +43,13 @@ public: \
 	NO_API virtual ~ABloquePegajoso();
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_12_PROLOG
-#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_GENERATED_BODY \
+#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_13_PROLOG
+#define FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_RPC_WRAPPERS_NO_PURE_DECLS \
-	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_INCLASS_NO_PURE_DECLS \
-	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_15_ENHANCED_CONSTRUCTORS \
+	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_INCLASS_NO_PURE_DECLS \
+	FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_16_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

@@ -14,6 +14,7 @@ void EmptyLinkFunctionForGeneratedCodeBloquePegajoso() {}
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloquePegajoso();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloquePegajoso_NoRegister();
+BOMBERMAN_12025_API UClass* Z_Construct_UClass_UIPrototypeBloque_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_AActor_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UPrimitiveComponent_NoRegister();
 ENGINE_API UScriptStruct* Z_Construct_UScriptStruct_FHitResult();
@@ -137,6 +138,7 @@ struct Z_Construct_UClass_ABloquePegajoso_Statics
 		{ &Z_Construct_UFunction_ABloquePegajoso_OnOverlapBegin, "OnOverlapBegin" }, // 2807485069
 	};
 	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABloquePegajoso>::IsAbstract,
 	};
@@ -147,6 +149,9 @@ UObject* (*const Z_Construct_UClass_ABloquePegajoso_Statics::DependentSingletons
 	(UObject* (*)())Z_Construct_UPackage__Script_BomberMan_12025,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloquePegajoso_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ABloquePegajoso_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UIPrototypeBloque_NoRegister, (int32)VTABLE_OFFSET(ABloquePegajoso, IIPrototypeBloque), false },  // 2221044317
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloquePegajoso_Statics::ClassParams = {
 	&ABloquePegajoso::StaticClass,
 	"Engine",
@@ -154,11 +159,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloquePegajoso_Statics
 	DependentSingletons,
 	FuncInfo,
 	nullptr,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
 	UE_ARRAY_COUNT(FuncInfo),
 	0,
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ABloquePegajoso_Statics::Class_MetaDataParams), Z_Construct_UClass_ABloquePegajoso_Statics::Class_MetaDataParams)
 };
@@ -182,10 +187,10 @@ ABloquePegajoso::~ABloquePegajoso() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloquePegajoso, ABloquePegajoso::StaticClass, TEXT("ABloquePegajoso"), &Z_Registration_Info_UClass_ABloquePegajoso, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloquePegajoso), 2033150759U) },
+		{ Z_Construct_UClass_ABloquePegajoso, ABloquePegajoso::StaticClass, TEXT("ABloquePegajoso"), &Z_Registration_Info_UClass_ABloquePegajoso, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloquePegajoso), 4272698961U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_168808993(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_1090087183(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloquePegajoso_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

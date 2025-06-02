@@ -13,6 +13,7 @@ void EmptyLinkFunctionForGeneratedCodeBloqueConcreto() {}
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloqueConcreto();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloqueConcreto_NoRegister();
+BOMBERMAN_12025_API UClass* Z_Construct_UClass_UIPrototypeBloque_NoRegister();
 UPackage* Z_Construct_UPackage__Script_BomberMan_12025();
 // End Cross Module References
 
@@ -37,6 +38,7 @@ struct Z_Construct_UClass_ABloqueConcreto_Statics
 	};
 #endif // WITH_METADATA
 	static UObject* (*const DependentSingletons[])();
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABloqueConcreto>::IsAbstract,
 	};
@@ -47,6 +49,9 @@ UObject* (*const Z_Construct_UClass_ABloqueConcreto_Statics::DependentSingletons
 	(UObject* (*)())Z_Construct_UPackage__Script_BomberMan_12025,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloqueConcreto_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ABloqueConcreto_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UIPrototypeBloque_NoRegister, (int32)VTABLE_OFFSET(ABloqueConcreto, IIPrototypeBloque), false },  // 2221044317
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloqueConcreto_Statics::ClassParams = {
 	&ABloqueConcreto::StaticClass,
 	"Engine",
@@ -54,11 +59,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloqueConcreto_Statics
 	DependentSingletons,
 	nullptr,
 	nullptr,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
 	0,
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ABloqueConcreto_Statics::Class_MetaDataParams), Z_Construct_UClass_ABloqueConcreto_Statics::Class_MetaDataParams)
 };
@@ -82,10 +87,10 @@ ABloqueConcreto::~ABloqueConcreto() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueConcreto_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueConcreto, ABloqueConcreto::StaticClass, TEXT("ABloqueConcreto"), &Z_Registration_Info_UClass_ABloqueConcreto, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueConcreto), 945774951U) },
+		{ Z_Construct_UClass_ABloqueConcreto, ABloqueConcreto::StaticClass, TEXT("ABloqueConcreto"), &Z_Registration_Info_UClass_ABloqueConcreto, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueConcreto), 2435071920U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueConcreto_h_780057709(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueConcreto_h_46964121(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueConcreto_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueConcreto_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

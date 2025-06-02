@@ -24,20 +24,17 @@ public:
 	TArray<ABloque*> BloquesA; // Guarda todos los bloques generados
 	TArray<TArray<int32>> MapaLaberinto;
 	void GenerarMapaDesdeCodigo();
-	 int32 TColumnas;
+	int32 TColumnas;
     int32 TFilas;
-   
 
 	void GenerarLaberinto();
 
 	//FabricaBloques* GenerarBloques();
 
 	//Para clonar bloques
+	void Prototipos();
+	TMap<int, AActor*> MapaPrototipos;
 	void ClonarBloques(int32 InTFilas, int32 InTColumnas);
-
-	//void ClonarMitadDerechaAHaciaIzquierda();
-	//ABloque* BuscarBloqueEnPosicion(FVector Posicion);
-	
 
 	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;
@@ -46,10 +43,6 @@ public:
 	void EliminarBloque();
 	void iniciarEliminarBloque();
 
-
-
-	//para enemigos
-	UPROPERTY()
 	TArray<AEnemigo*> EnemigosA;//GUARDA LOS ENEMIGOS 
 	TArray<FVector> PuntosPatrullaLibres;
 	///void SpawnEnemigos();

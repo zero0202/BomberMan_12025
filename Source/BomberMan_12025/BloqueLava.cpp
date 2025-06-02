@@ -19,7 +19,7 @@ ABloqueLava::ABloqueLava()
 		MeshBloque->SetRelativeLocation(FVector(0.0f, 0.0f, 0.0f));
 	}
 	//para asignar textura
-	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueAceroMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/Fuego.Fuego'"));
+	static ConstructorHelpers::FObjectFinder<UMaterialInterface> ObjetoBloqueAceroMaterial(TEXT("/Script/Engine.Material'/Game/StarterContent/Materials/Lava.Lava'"));
 	if (ObjetoBloqueAceroMaterial.Succeeded())
 	{
 		MeshBloque->SetMaterial(0, ObjetoBloqueAceroMaterial.Object);
@@ -68,19 +68,12 @@ void ABloqueLava::Tick(float DeltaTime)
 	SetActorLocation(NuevaPosicion);
 }
 
-AActor* ABloqueLava::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueLava::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueLava* Nuevo = Mundo->SpawnActor<ABloqueLava>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

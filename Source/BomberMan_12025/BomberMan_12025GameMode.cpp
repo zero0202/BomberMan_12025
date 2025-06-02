@@ -89,7 +89,9 @@ void ABomberMan_12025GameMode::BeginPlay()
     */
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
+    Prototipos();
     ClonarBloques(TFilas, TColumnas);
+
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
     GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
@@ -97,13 +99,12 @@ void ABomberMan_12025GameMode::BeginPlay()
 }
 void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
 {
-    int Columnas = 20;
-    int Filas = 20;
+    int Columnas = 23;
+    int Filas = 23;
 
     TColumnas = Columnas + 1;
     TFilas = Filas + 1;
-    int Y;
-    int X;
+    int Y,X;
     //inicializamos la matriz
     MapaLaberinto.SetNum(TFilas);
     for (Y = 0; Y < TFilas; Y++)
@@ -112,11 +113,11 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         for (X = 0; X < TColumnas; X++)
         {
             int Mitad = TColumnas / 2;
-            // Solo trabajar desde la mitad hacia la derecha
+            //solo la mitad
             if (X >= Mitad)
             {
-                // Bordes verticales y horizontales pero solo en esa mitad
-                if (X == Mitad || X == TColumnas - 1 || Y == 0 || Y == TFilas - 1)
+                // Bordes verticales y horizontales
+                if (X == 0||X == TColumnas - 1 || Y == 0 || Y == TFilas - 1)
                 {
                     MapaLaberinto[Y][X] = 1; // Acero
                 }
@@ -127,10 +128,11 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
             }
             else
             {
-                MapaLaberinto[Y][X] = -2; // No se usa (izquierda)
+                MapaLaberinto[Y][X] = -2; // No se usa izquierda
             }
         }
     }
+
     // Laberinto tipo "DFS" solo en la mitad derecha
     TSet<FIntPoint> Visitadas;
     TArray<FIntPoint> Pila;
@@ -185,7 +187,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         {
             if (MapaLaberinto[Y][X] == -1)
             {
-                MapaLaberinto[Y][X] = FMath::RandRange(2, 10); 
+                MapaLaberinto[Y][X] = FMath::RandRange(2, 8); 
             }
         }
     }
@@ -221,7 +223,6 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
                 continue;
 
 
-
             }
 
             //creacion directamente desde que se genera x y y, en la pocion 0 0 0 por defecto
@@ -250,151 +251,80 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
                 if (BloqueSpawned)
                 {
 
-                    BloquesA.Add(BloqueSpawned); // Guarda el bloque en un array para acceso futuro
+                    BloquesA.Add(BloqueSpawned); // Guarda el bloque 
                 }
             }
         }
     }
 
 }
+// Inicializa el mapa de prototipos con instancias reales de bloques en el mundo
+void ABomberMan_12025GameMode::Prototipos()
+{
+    // Lambda local para evitar repetir código al registrar cada tipo
+    auto AgregarPrototipo = [&](int TipoID, TSubclassOf<AActor> ClaseBloque)
+        {
+            TArray<AActor*> Encontrados;
+            // Busca un actor ya existente de la clase especificada
+            UGameplayStatics::GetAllActorsOfClass(GetWorld(), ClaseBloque, Encontrados);
+
+            if (Encontrados.Num() > 0)
+            {
+                // Guarda la referencia del primero encontrado como prototipo
+                MapaPrototipos.Add(TipoID, Encontrados[0]);
+            }
+        };
+
+        // Registro de todos los tipos de bloque para su reflejo
+        AgregarPrototipo(1, ABloqueAcero::StaticClass());
+        AgregarPrototipo(2, ABloqueLadrillo::StaticClass());
+        AgregarPrototipo(3, ABloqueConcreto::StaticClass());
+        AgregarPrototipo(4, ABloqueMadera::StaticClass());
+        AgregarPrototipo(5, ABloqueLava::StaticClass());
+        AgregarPrototipo(6, ABloqueHielo::StaticClass());
+        AgregarPrototipo(7, ABloqueElectrico::StaticClass());
+        AgregarPrototipo(8, ABloqueHongo::StaticClass());
+        AgregarPrototipo(9, ABloqueArena::StaticClass());
+        AgregarPrototipo(9, ABloquePegajoso::StaticClass());
+
+
+}
 
 void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 {
-    float TamanioCelda = 400.f; 
+    
+    float TamCelda = 400.f; // Tamaño entre bloques en el mapa
+    int32 ColumnaCentro = TColumnas / 2; // Punto de reflejo horizontal
 
-    int Mitad = TColumnas / 2;
-
-    // Recorremos solo la mitad derecha para clonar hacia la izquierda
-    for (int Y = 0; Y < TFilas; Y++)
+    for (int32 Y = 0; Y < InTFilas; Y++)
     {
-        for (int X = Mitad; X < TColumnas; X++)
+        for (int32 X = ColumnaCentro; X < InTColumnas; X++)
         {
-            int TipoBloque = MapaLaberinto[Y][X];
+            int32 Tipo = MapaLaberinto[Y][X];
+            if (Tipo <= 0) continue; // Ignorar celdas vacías o sin tipo
 
-            if (TipoBloque <= 0) continue; // Ignorar celdas vacías
+            // Calcula la posición del clon reflejado en la otra mitad del mapa
+            int32 XReflejado = ColumnaCentro - (X - ColumnaCentro);
+            FVector PosicionClonada(XReflejado * TamCelda, Y * TamCelda, 40.f);
 
-            FVector PosOriginal = FVector(X * TamanioCelda, Y * TamanioCelda, 40.f);
-            FVector PosClonada = FVector((Mitad - (X - Mitad + 1)) * TamanioCelda, Y * TamanioCelda, 40.f);
+            // Busca el prototipo correspondiente al tipo en el mapa
+            if (AActor* Prototipo = MapaPrototipos.FindRef(Tipo))
+            {
+                // Se asegura que el prototipo implemente la interfaz de clonación
+                if (IIPrototypeBloque* Clonador = Cast<IIPrototypeBloque>(Prototipo))
+                {
+                    // Se genera el clon usando el método virtual Clonar
+                    AActor* Clon = Clonador->Clonar(GetWorld(), PosicionClonada);
 
-            AActor* Clon = nullptr;
+                    if (Clon)
+                    {
+                        // Se actualiza el mapa para registrar el nuevo bloque clonado
+                        MapaLaberinto[Y][XReflejado] = Tipo;
 
-            switch (TipoBloque)
-            {
-            case 1: // Acero
-            {
-                TArray<AActor*> AceroRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueAcero::StaticClass(), AceroRefs);
-                if (AceroRefs.Num() > 0)
-                {
-                    ABloqueAcero* Prototipo = Cast<ABloqueAcero>(AceroRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
+                        // (Opcional) Muestra mensaje en consola para verificar clonación
+                        UE_LOG(LogTemp, Warning, TEXT("Clonado tipo %d en (%d, %d)"), Tipo, XReflejado, Y);
+                    }
                 }
-                break;
-            }
-            case 2: // Ladrillo
-            {
-                TArray<AActor*> LadrilloRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueLadrillo::StaticClass(), LadrilloRefs);
-                if (LadrilloRefs.Num() > 0)
-                {
-                    ABloqueLadrillo* Prototipo = Cast<ABloqueLadrillo>(LadrilloRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 3: // Madera
-            {
-                TArray<AActor*> MaderaRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueMadera::StaticClass(), MaderaRefs);
-                if (MaderaRefs.Num() > 0)
-                {
-                    ABloqueMadera* Prototipo = Cast<ABloqueMadera>(MaderaRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-			case 4: // Concreto
-            {
-                TArray<AActor*> ConcretoRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueConcreto::StaticClass(), ConcretoRefs);
-                if (ConcretoRefs.Num() > 0)
-                {
-                    ABloqueConcreto* Prototipo = Cast<ABloqueConcreto>(ConcretoRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 5: 
-            {
-                TArray<AActor*> LavaRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueLava::StaticClass(), LavaRefs);
-                if (LavaRefs.Num() > 0)
-                {
-                    ABloqueLava* Prototipo = Cast<ABloqueLava>(LavaRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 6: 
-            {
-                TArray<AActor*> PegajosoRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloquePegajoso::StaticClass(), PegajosoRefs);
-                if (PegajosoRefs.Num() > 0)
-                {
-                    ABloquePegajoso* Prototipo = Cast<ABloquePegajoso>(PegajosoRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 7: 
-            {
-                TArray<AActor*> HieloRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueHielo::StaticClass(), HieloRefs);
-                if (HieloRefs.Num() > 0)
-                {
-                    ABloqueHielo* Prototipo = Cast<ABloqueHielo>(HieloRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 8: 
-            {
-                TArray<AActor*> HongoRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueHongo::StaticClass(), HongoRefs);
-                if (HongoRefs.Num() > 0)
-                {
-                    ABloqueHongo* Prototipo = Cast<ABloqueHongo>(HongoRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 9: 
-            {
-                TArray<AActor*> ArenaRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueArena::StaticClass(), ArenaRefs);
-                if (ArenaRefs.Num() > 0)
-                {
-                    ABloqueArena* Prototipo = Cast<ABloqueArena>(ArenaRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            case 10:
-            {
-                TArray<AActor*> ElectricoRefs;
-                UGameplayStatics::GetAllActorsOfClass(GetWorld(), ABloqueElectrico::StaticClass(), ElectricoRefs);
-                if (ElectricoRefs.Num() > 0)
-                {
-                    ABloqueElectrico* Prototipo = Cast<ABloqueElectrico>(ElectricoRefs[0]);
-                    Clon = Prototipo->Clonar(GetWorld(), PosClonada);
-                }
-                break;
-            }
-            }
-
-            if (Clon)
-            {
-                // Opcional: marca o guarda referencia del clon si quieres gestionarlos luego
             }
         }
     }

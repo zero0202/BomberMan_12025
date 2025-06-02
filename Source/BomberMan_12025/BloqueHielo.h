@@ -25,6 +25,6 @@ public:
 	float TiempoMovimiento;
 
 
-	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
-	float TirmpoMovimiento;
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
+	
 };

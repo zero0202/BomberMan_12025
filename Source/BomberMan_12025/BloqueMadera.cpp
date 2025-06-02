@@ -26,7 +26,7 @@ ABloqueMadera::ABloqueMadera()
 	}
 
 	// Inicializar variables
-	MoverBloque = true;
+	MoverBloque = false;
 	bAbriendo = false;
 	VelocidadMovimiento = 100.0f; // Velocidad de movimiento
 	DistanciaApertura = 200.0f;   // Distancia máxima de apertura
@@ -46,7 +46,7 @@ void ABloqueMadera::BeginPlay()
 void ABloqueMadera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	TiempoMovimiento += DeltaTime;
+
 	if (MoverBloque) {
 		// Obtener la posición actual del bloque
 		FVector NuevaPosicion = GetActorLocation();
@@ -76,19 +76,12 @@ void ABloqueMadera::Tick(float DeltaTime)
 	}
 }
 
-AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueMadera* Nuevo = Mundo->SpawnActor<ABloqueMadera>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

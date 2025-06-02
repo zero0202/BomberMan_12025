@@ -40,6 +40,6 @@ protected:
 	void OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 public:
 	// Implementación del patrón Prototype
-	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
-	float TiempoMovimiento;
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion)  override;
+
 };

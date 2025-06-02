@@ -31,6 +31,6 @@ public:
 	FVector PosicionInicial; // Posición inicial
 
 	// Implementación del patrón Prototype
-	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
-	float TiempoMovimiento;
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion)  override;
+
 };

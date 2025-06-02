@@ -35,7 +35,7 @@ ABloqueElectrico::ABloqueElectrico()
 	if (FX.Succeeded())
 	{
 		ParticulasElectricas->SetTemplate(FX.Object);
-		ParticulasElectricas->SetWorldScale3D(FVector(15.0f));
+		ParticulasElectricas->SetWorldScale3D(FVector(1.0f));
 
 	}
 
@@ -84,19 +84,13 @@ void ABloqueElectrico::Tick(float DeltaTime)
 	SetActorLocation(NuevaPosicion);
 }
 
-AActor* ABloqueElectrico::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueElectrico::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueElectrico* Nuevo = Mundo->SpawnActor<ABloqueElectrico>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
 
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

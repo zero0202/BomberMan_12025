@@ -34,6 +34,6 @@ public:
 	// Función para liberar al personaje del bloque pegajoso
 	void LiberarPersonaje();
 
-	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
-	float TiempoMovimiento;
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
+	
 };

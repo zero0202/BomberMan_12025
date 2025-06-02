@@ -52,19 +52,12 @@ void ABloqueHongo::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 	}
 }
 
-AActor* ABloqueHongo::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueHongo::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueHongo* Nuevo = Mundo->SpawnActor<ABloqueHongo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

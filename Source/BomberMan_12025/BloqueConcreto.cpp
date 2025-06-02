@@ -22,6 +22,7 @@ ABloqueConcreto::ABloqueConcreto()
 		MeshBloque->SetMaterial(0, BloqueConcretoMaterialAsset.Object);
 	}
 
+	/*
 	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
 	ParticleSystem->SetupAttachment(RootComponent);
 
@@ -34,6 +35,7 @@ ABloqueConcreto::ABloqueConcreto()
 		// Escalar el sistema de partículas para que sea más grande
 		ParticleSystem->SetWorldScale3D(FVector(1.0f, 1.0f, 1.5f));
 	}
+	*/
 	bDestruible = true;
 
 	bPuedeGirar = true; // Se asignará desde el GameMode
@@ -59,19 +61,12 @@ void ABloqueConcreto::Tick(float DeltaTime)
 
 }
 
-AActor* ABloqueConcreto::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueConcreto::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueConcreto* Nuevo = Mundo->SpawnActor<ABloqueConcreto>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

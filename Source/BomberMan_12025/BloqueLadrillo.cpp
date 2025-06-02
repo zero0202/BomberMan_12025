@@ -67,19 +67,12 @@ void ABloqueLadrillo::Tick(float DeltaTime)
 
 }
 
-AActor* ABloqueLadrillo::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueLadrillo::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueLadrillo* Nuevo = Mundo->SpawnActor<ABloqueLadrillo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

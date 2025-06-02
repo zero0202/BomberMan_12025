@@ -29,6 +29,6 @@ public:
 	float TiempoLava;
 	FVector PosicionInicial;
 
-	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) const override;
+	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
 	float TiempoMovimiento;
 };

@@ -84,18 +84,12 @@ void ABloqueArena::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* O
 
 	}
 }
-AActor* ABloqueArena::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueArena::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueArena* Nuevo = Mundo->SpawnActor<ABloqueArena>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-	}
 
 	return Nuevo;
 }

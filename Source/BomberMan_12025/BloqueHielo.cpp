@@ -50,19 +50,12 @@ void ABloqueHielo::Tick(float DeltaTime)
 	SetActorLocation(NuevaPos);
 }
 
-AActor* ABloqueHielo::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloqueHielo::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueHielo* Nuevo = Mundo->SpawnActor<ABloqueHielo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

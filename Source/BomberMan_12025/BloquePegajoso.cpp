@@ -78,19 +78,12 @@ void ABloquePegajoso::LiberarPersonaje()
 	}
 }
 
-AActor* ABloquePegajoso::Clonar(UWorld* Mundo, const FVector& Posicion) const
+AActor* ABloquePegajoso::Clonar(UWorld* Mundo, const FVector& Posicion)
 {
 	if (!Mundo) return nullptr;
 
 	FActorSpawnParameters SpawnParams;
 	ABloquePegajoso* Nuevo = Mundo->SpawnActor<ABloquePegajoso>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-
-	if (Nuevo)
-	{
-		Nuevo->TiempoMovimiento = this->TiempoMovimiento;
-		// puedes copiar más propiedades si necesitas
-	}
 
 	return Nuevo;
 }

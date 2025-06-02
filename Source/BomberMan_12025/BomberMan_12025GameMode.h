@@ -37,7 +37,7 @@ public:
 
 	//void ClonarMitadDerechaAHaciaIzquierda();
 	//ABloque* BuscarBloqueEnPosicion(FVector Posicion);
-	float TamanoCelda = 200.0f;
+	
 
 	//para Eliminar bloques
 	ABloque* BloqueActual = nullptr;

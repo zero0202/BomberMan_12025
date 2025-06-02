@@ -23,7 +23,7 @@ ABloque::ABloque()
 	Particulas->SetupAttachment(RootComponent);
 
 	// Establecer el tamaño inicial del bloque
-	AjustarTamano(FVector(9.0f, 9.0f, 13.0f));
+	AjustarTamano(FVector(4.0f, 4.0f, 5.0f));
 
 }
 

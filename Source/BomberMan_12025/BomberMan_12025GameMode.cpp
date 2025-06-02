@@ -3,8 +3,6 @@
 #include "BomberMan_12025GameMode.h"
 #include "BomberMan_12025Character.h"
 #include "UObject/ConstructorHelpers.h"
-#include "UObject/ConstructorHelpers.h"
-#include "GameFramework/Character.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/Engine.h"
@@ -20,6 +18,7 @@
 #include "BloqueHielo.h"
 #include "BloqueHongo.h"
 #include "IPrototypeBloque.h"
+
 ABomberMan_12025GameMode::ABomberMan_12025GameMode()
 {
 	// set default pawn class to our Blueprinted character
@@ -90,7 +89,7 @@ void ABomberMan_12025GameMode::BeginPlay()
     */
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
-   ClonarBloques(TFilas, TColumnas);
+    ClonarBloques(TFilas, TColumnas);
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
     GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
@@ -123,7 +122,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
                 }
                 else
                 {
-                    MapaLaberinto[Y][X] = -1; // Celda vacía por ahora
+                    MapaLaberinto[Y][X] = -1; // Celda vacia 
                 }
             }
             else
@@ -186,7 +185,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         {
             if (MapaLaberinto[Y][X] == -1)
             {
-                MapaLaberinto[Y][X] = FMath::RandRange(2, 10); // Bloques: 1=Madera, 2=Ladrillo, 3=Concreto
+                MapaLaberinto[Y][X] = FMath::RandRange(2, 10); 
             }
         }
     }
@@ -199,7 +198,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
 void ABomberMan_12025GameMode::GenerarLaberinto()
 {
 
-    float Espaciado = 900.0f;
+    float Espaciado = 400.0f;
 
     //las filas y columnas se estan creando directamente se derivan automaticamente 
     // El tamaño lo decide el contenido del array.
@@ -261,7 +260,7 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
 
 void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 {
-    float TamanioCelda = 900.f; // Asegúrate que este valor coincida con el usado en Spawn original
+    float TamanioCelda = 400.f; 
 
     int Mitad = TColumnas / 2;
 
@@ -274,8 +273,8 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 
             if (TipoBloque <= 0) continue; // Ignorar celdas vacías
 
-            FVector PosOriginal = FVector(X * TamanioCelda, Y * TamanioCelda, 140.f);
-            FVector PosClonada = FVector((Mitad - (X - Mitad + 1)) * TamanioCelda, Y * TamanioCelda, 140.f);
+            FVector PosOriginal = FVector(X * TamanioCelda, Y * TamanioCelda, 40.f);
+            FVector PosClonada = FVector((Mitad - (X - Mitad + 1)) * TamanioCelda, Y * TamanioCelda, 40.f);
 
             AActor* Clon = nullptr;
 
@@ -391,7 +390,6 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
                 }
                 break;
             }
-            // Puedes añadir más tipos según necesites
             }
 
             if (Clon)
@@ -401,57 +399,6 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
         }
     }
 }
-
-/*
-void ABomberMan_12025GameMode::ClonarMitadDerechaAHaciaIzquierda()
-{
-    int TFilas = MapaLaberinto.Num();
-    int TColumnas = MapaLaberinto[0].Num();
-
-    int Mitad = TColumnas / 2;
-
-    for (int Y = 1; Y < TFilas - 1; Y++)
-    {
-        for (int X = Mitad + 1; X < TColumnas - 1; X++)
-        {
-            int ValorOriginal = MapaLaberinto[Y][X];
-
-            if (ValorOriginal >= 2 && ValorOriginal <= 10) // Bloque válido
-            {
-                // Posición reflejada
-                int XR = Mitad - (X - Mitad);
-
-                // Clonar visual
-                FVector PosOriginal = FVector(X * TamanoCelda, Y * TamanoCelda, 0.0f);
-                FVector PosClon = FVector(XR * TamanoCelda, Y * TamanoCelda, 0.0f);
-
-                ABloque* BloqueOriginal = BuscarBloqueEnPosicion(PosOriginal);
-                if (BloqueOriginal)
-                {
-                    ABloque* BloqueClonado = BloqueOriginal->Clon();
-                    if (BloqueClonado)
-                    {
-                        BloqueClonado->SetActorLocation(PosClon);
-                        GetWorld()->SpawnActor<ABloque>(BloqueClonado->GetClass(), PosClon, FRotator::ZeroRotator);
-                        MapaLaberinto[Y][XR] = ValorOriginal;
-                    }
-                }
-            }
-        }
-    }
-}
-ABloque* ABomberMan_12025GameMode::BuscarBloqueEnPosicion(FVector Posicion)
-{
-    for (TActorIterator<ABloque> It (GetWorld()); It; ++It)
-    {
-        if (It->GetActorLocation().Equals(Posicion, 1.0f))
-        {
-            return *It;
-        }
-    }
-    return nullptr;
-}
-*/
 void ABomberMan_12025GameMode::EliminarBloque()
 {
 
@@ -476,36 +423,7 @@ void ABomberMan_12025GameMode::EliminarBloque()
             BloquesA.Remove(BloqueActual);
         }
     }
-
-    /*
-    // Crear un array temporal con solo bloques que se pueden eliminar (NO de acero)
-    TArray<ABloque*> BloquesEliminables;
-
-    for (ABloque* Bloque : BloquesA)
-    {
-        if (!Bloque) continue;
-
-        // Verificamos que no sea un bloque de acero
-        //IsA se utiliza para verificar   que sea de la clase bloque
-        if (!Bloque->IsA(ABloqueAcero::StaticClass()))
-        {
-            BloquesEliminables.Add(Bloque);
-        }
-    }
-
-    // Si hay bloques eliminables disponibles
-    if (BloquesEliminables.Num() > 0)
-    {
-        int32 Aleatorio = FMath::RandRange(0, BloquesEliminables.Num() - 1);
-        BloqueActual = BloquesEliminables[Aleatorio];
-
-        if (BloqueActual)
-        {
-            BloqueActual->Destroy();
-            BloquesA.Remove(BloqueActual); // Opcional: para que no lo intentes eliminar otra vez
-        }
-    }
-    */
+   
 }
 
 void ABomberMan_12025GameMode::iniciarEliminarBloque()
@@ -520,7 +438,7 @@ void ABomberMan_12025GameMode::iniciarEliminarBloque()
 void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
 {
     TArray<FVector> PosicionesValidas;
-    float Espaciado = 900.0f;
+    float Espaciado = 400.0f;
     int32 NumFilas = MapaLaberinto.Num();
     int32 NumColumnas = MapaLaberinto[0].Num();
     float DistanciaMinima = FLT_MAX;

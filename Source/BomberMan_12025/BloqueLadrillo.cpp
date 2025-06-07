@@ -45,6 +45,24 @@ void ABloqueLadrillo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	MovimientoUnico(DeltaTime);
+
+}
+
+AActor* ABloqueLadrillo::Clonar(UWorld* Mundo, const FVector& Posicion)
+{
+	if (!Mundo) return nullptr;
+
+	FActorSpawnParameters SpawnParams;
+	ABloqueLadrillo* Nuevo = Mundo->SpawnActor<ABloqueLadrillo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
+
+	
+	return Nuevo;
+	
+}
+
+void ABloqueLadrillo::MovimientoUnico(float DeltaTime)
+{
 	if (PuedeSubir) {
 
 		// Calcular la nueva posición en el eje Z
@@ -64,16 +82,5 @@ void ABloqueLadrillo::Tick(float DeltaTime)
 
 
 	}
-
-}
-
-AActor* ABloqueLadrillo::Clonar(UWorld* Mundo, const FVector& Posicion)
-{
-	if (!Mundo) return nullptr;
-
-	FActorSpawnParameters SpawnParams;
-	ABloqueLadrillo* Nuevo = Mundo->SpawnActor<ABloqueLadrillo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-	return Nuevo;
 }
 

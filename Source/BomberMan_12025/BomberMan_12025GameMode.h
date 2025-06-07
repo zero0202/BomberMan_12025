@@ -1,11 +1,11 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
 #include "Bloque.h"
 #include "Enemigo.h"
+#include "FabricaBloque.h"
 #include "BomberMan_12025GameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -19,17 +19,23 @@ public:
 
 	virtual void BeginPlay() override;
 public:
-	//Para bloque
+
+	//Para bloque Factory Method
 	UPROPERTY()
 	TArray<ABloque*> BloquesA; // Guarda todos los bloques generados
 	TArray<TArray<int32>> MapaLaberinto;
+	TMap<int, ABloque*> MapaBloques;
 	void GenerarMapaDesdeCodigo();
-	int32 TColumnas;
-    int32 TFilas;
-
 	void GenerarLaberinto();
+	int TColumnas;
+    int TFilas;
+	int ID = 0;
 
-	//FabricaBloques* GenerarBloques();
+	
+
+	TSubclassOf<AFabricaBloque> FabricaRedonda;
+	TSubclassOf<AFabricaBloque> FabricaCuadrada;
+	AFabricaBloque* Fabrica;
 
 	//Para clonar bloques
 	void Prototipos();

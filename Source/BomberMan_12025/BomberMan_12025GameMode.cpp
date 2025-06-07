@@ -18,6 +18,10 @@
 #include "BloqueHielo.h"
 #include "BloqueHongo.h"
 #include "IPrototypeBloque.h"
+#include "FabricaBloque.h"
+#include "FabricaBloqueRedondos.h"
+#include "FabricaBloqueCuadrados.h"
+
 
 ABomberMan_12025GameMode::ABomberMan_12025GameMode()
 {
@@ -31,70 +35,21 @@ ABomberMan_12025GameMode::ABomberMan_12025GameMode()
 void ABomberMan_12025GameMode::BeginPlay()
 {
     Super::BeginPlay();
-    /*
-        // Mapa del laberinto:
-       // 0 = vacío, 1 = madera, 2 = ladrillo, 3 = concreto, 4 = acero 5 = lava, 6 = arena, 7 = electrico, 8 = pegajoso, 9 = hielo, 10 = hongo
-        MapaLaberinto = {
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
-    {4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4,4,0,0,0,0,4,0,7,7,0,0,4,0,7,0,4,0,0,0,7,0,7,7,0,4},
-    {4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4,4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,7,0,0,2,0,4},
-    {4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,7,7,7,0,4},
-    {4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4,4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
-    {4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4,4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,8,8,8,0,4},
-    {4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4,4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
-    {4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4,4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,9,9,9,9,9,9,0,4},
-    {4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4,4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,9,9,10,0,0,0,1,0,4},
-    {4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4,4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,9,0,0,1,0,2,0,4},
-    {4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4,4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
-    {4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4,4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
-    {4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4,4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
-    {4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4,4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
-    {4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4,4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
-    {4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4,4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
-    {4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4,4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4},
-    {4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4,4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
-    {4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4,4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
-    {4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4,4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4},
-    {4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4,4,0,1,0,4,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,2,0,4,0,4},
-    {4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4,4,0,4,4,4,0,3,4,4,0,4,4,2,4,2,4,4,2,0,1,1,0,2,4,4},
-    {4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4,4,2,4,0,2,0,1,0,1,0,4,4,1,0,0,1,0,1,1,0,0,0,0,0,4},
-    {4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4,4,0,1,0,1,0,2,0,1,0,4,0,0,0,4,0,0,1,0,0,0,0,1,0,4},
-    {4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4,4,0,2,0,4,0,4,0,4,4,4,0,2,0,4,2,4,1,0,2,2,4,4,0,4},
-    {4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4,4,2,4,0,4,0,1,0,1,0,4,4,0,0,1,0,2,0,1,0,4,2,2,0,4},
-    {4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4,4,0,4,0,2,0,0,4,0,0,0,2,2,0,1,0,0,4,4,4,0,1,1,0,4},
-    {4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4,4,0,4,0,4,0,0,2,2,0,0,0,0,0,1,0,0,4,0,4,0,0,1,0,4},
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4},
-    {4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4,4,0,0,0,0,4,0,1,1,0,0,4,0,1,0,4,0,0,0,1,0,0,1,0,4},
-    {4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4,4,0,4,4,4,4,0,2,4,4,0,4,0,0,0,4,2,4,0,1,0,0,2,0,4},
-    {4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4,4,0,4,0,0,0,0,4,0,0,0,0,0,0,0,0,0,1,0,0,1,1,1,0,4},
-    {4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4,4,0,4,0,1,1,1,1,0,1,0,4,4,4,4,0,0,0,0,0,0,0,2,0,4},
-    {4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4,4,0,4,0,1,0,0,0,0,0,4,0,2,0,4,4,2,4,2,0,1,1,1,0,4},
-    {4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4,4,2,4,4,2,4,4,0,2,4,4,0,1,0,2,0,0,4,2,0,1,0,0,0,4},
-    {4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4,4,0,1,0,0,0,2,0,4,0,1,0,0,0,4,0,0,1,1,1,1,1,1,0,4},
-    {4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4,4,0,4,2,4,4,4,2,2,0,1,1,1,0,2,0,1,1,1,0,0,0,1,0,4},
-    {4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4,4,0,1,0,2,0,2,4,4,0,0,0,2,0,4,0,0,1,0,0,1,0,2,0,4},
-    {4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4,4,2,4,0,1,0,1,0,1,0,1,0,1,0,4,0,0,1,0,0,1,0,1,0,4},
-    {4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4,4,0,4,0,0,0,2,0,0,0,1,0,0,0,4,4,4,4,2,0,1,1,1,0,4},
-    {4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4,4,0,4,0,1,1,0,1,1,1,1,0,0,0,0,0,1,0,0,4,0,0,0,0,4},
-    {4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4,4,0,0,0,2,0,4,0,4,0,0,0,0,3,4,4,4,0,1,1,1,1,1,0,4},
-    {4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4,4,2,0,0,1,0,4,0,4,0,1,0,0,0,0,4,0,0,0,2,4,0,1,0,4},
-    {4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4,4,0,4,0,1,0,4,0,0,0,1,0,4,4,0,1,0,1,0,0,0,0,1,0,4},
-    {4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4,4,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,2,2,2,2,0,4,4,4},
-    {4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4,4,0,1,0,2,0,0,0,1,0,0,0,2,0,0,4,4,4,0,4,4,4,4,0,4},
-    {4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4,4,0,1,0,1,0,1,0,1,0,1,0,1,0,0,4,0,0,0,2,4,2,4,0,4},
-    {4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,0,0,4,4,0,1,0,4,0,2,0,1,1,1,0,0,0,0,4,0,1,1,0,0,0,4,0,4},
-    {4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4}
-    };
-    */
+
+    if (!FabricaRedonda)
+    {
+        Fabrica = GetWorld()->SpawnActor<AFabricaBloque>(AFabricaBloque::StaticClass());
+    }
+
+
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
-    Prototipos();
-    ClonarBloques(TFilas, TColumnas);
+   // Prototipos();
+   // ClonarBloques(TFilas, TColumnas);
 
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
-    GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
+  //  GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
 
 }
 void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
@@ -187,7 +142,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         {
             if (MapaLaberinto[Y][X] == -1)
             {
-                MapaLaberinto[Y][X] = FMath::RandRange(2, 8); 
+                MapaLaberinto[Y][X] = FMath::RandRange(2, 4); 
             }
         }
     }
@@ -224,40 +179,45 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
 
 
             }
-
-            //creacion directamente desde que se genera x y y, en la pocion 0 0 0 por defecto
-            FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
-            FRotator Rotacion = FRotator::ZeroRotator;
-            TSubclassOf<AActor> ClaseBloque = nullptr;
-
+            // Traducir entero a EBloqueTipo (ajusta según tu enumeración real)
+            EBloqueTipo TipoBloque;
             switch (Tipo)
             {
-            case 1: ClaseBloque = ABloqueAcero::StaticClass(); break;
-            case 2: ClaseBloque = ABloqueLadrillo::StaticClass(); break;
-            case 3: ClaseBloque = ABloqueConcreto::StaticClass(); break;
-            case 4: ClaseBloque = ABloqueMadera::StaticClass(); break;
-            case 5: ClaseBloque = ABloqueLava::StaticClass(); break;
-            case 6: ClaseBloque = ABloqueArena::StaticClass(); break;
-            case 7: ClaseBloque = ABloqueElectrico::StaticClass(); break;
-            case 8: ClaseBloque = ABloquePegajoso::StaticClass(); break;
-            case 9: ClaseBloque = ABloqueHielo::StaticClass(); break;
-            case 10: ClaseBloque = ABloqueHongo::StaticClass(); break;
-            default: break;
+            case 1: TipoBloque = EBloqueTipo::Acero; break;
+            case 2: TipoBloque = EBloqueTipo::Ladrillo; break;
+            case 3: TipoBloque = EBloqueTipo::Concreto; break;
+            case 4: TipoBloque = EBloqueTipo::Madera; break;
+            case 5: TipoBloque = EBloqueTipo::Lava; break;
+            case 6: TipoBloque = EBloqueTipo::Arena; break;
+            case 7: TipoBloque = EBloqueTipo::Electrico; break;
+            case 8: TipoBloque = EBloqueTipo::Pegajoso; break;
+            case 9: TipoBloque = EBloqueTipo::Hielo; break;
+            case 10: TipoBloque = EBloqueTipo::Hongo; break;
+            default: continue;
             }
 
-            if (ClaseBloque)
+            if (Fabrica)
             {
-                ABloque* BloqueSpawned = GetWorld()->SpawnActor<ABloque>(ClaseBloque, Posicion, Rotacion);
-                if (BloqueSpawned)
-                {
+                FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
+                FRotator Rotacion = FRotator::ZeroRotator;
+                UWorld* World = GetWorld();
 
-                    BloquesA.Add(BloqueSpawned); // Guarda el bloque 
+                ABloque* Bloque = Fabrica->CrearBloque(World, Posicion, Rotacion, TipoBloque, ID);
+
+                if (Bloque)
+                {
+                    BloquesA.Add(Bloque);
+                    MapaBloques.Add(ID, Bloque);
+                    ID++;
                 }
             }
         }
+                    
+        
     }
 
 }
+
 // Inicializa el mapa de prototipos con instancias reales de bloques en el mundo
 void ABomberMan_12025GameMode::Prototipos()
 {
@@ -280,13 +240,14 @@ void ABomberMan_12025GameMode::Prototipos()
         AgregarPrototipo(2, ABloqueLadrillo::StaticClass());
         AgregarPrototipo(3, ABloqueConcreto::StaticClass());
         AgregarPrototipo(4, ABloqueMadera::StaticClass());
+        /*
         AgregarPrototipo(5, ABloqueLava::StaticClass());
         AgregarPrototipo(6, ABloqueHielo::StaticClass());
         AgregarPrototipo(7, ABloqueElectrico::StaticClass());
         AgregarPrototipo(8, ABloqueHongo::StaticClass());
         AgregarPrototipo(9, ABloqueArena::StaticClass());
         AgregarPrototipo(9, ABloquePegajoso::StaticClass());
-
+        */
 
 }
 
@@ -320,9 +281,10 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
                     {
                         // Se actualiza el mapa para registrar el nuevo bloque clonado
                         MapaLaberinto[Y][XReflejado] = Tipo;
-
+                        
                         // (Opcional) Muestra mensaje en consola para verificar clonación
                         UE_LOG(LogTemp, Warning, TEXT("Clonado tipo %d en (%d, %d)"), Tipo, XReflejado, Y);
+
                     }
                 }
             }

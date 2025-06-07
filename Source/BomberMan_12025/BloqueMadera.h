@@ -33,8 +33,11 @@ public:
 	float DistanciaApertura; // Distancia máxima al abrir
 	FVector PosicionInicial; // Posición inicial
 
+
+	float dureza = 30;
 	// Implementación del patrón Prototype
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion)  override;
 
 
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

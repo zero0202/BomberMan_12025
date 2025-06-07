@@ -30,6 +30,7 @@ public:
 	bool bPuedeGirar;
 	float RotationSpeed;
 
+	float dureza = 80;
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
-
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

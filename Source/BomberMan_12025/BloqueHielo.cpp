@@ -36,18 +36,7 @@ void ABloqueHielo::BeginPlay()
 void ABloqueHielo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	TiempoMovimiento += DeltaTime;
-
-
-	float Amplitud = 20.0f;          // Altura de la onda
-	float Frecuencia = 1.5f;         // Velocidad del movimiento
-
-	float DesplazamientoZ = FMath::Sin(TiempoMovimiento * Frecuencia) * Amplitud;
-
-	FVector NuevaPos = PosicionInicial;
-	NuevaPos.Z += DesplazamientoZ;
-
-	SetActorLocation(NuevaPos);
+	MovimientoUnico(DeltaTime);
 }
 
 AActor* ABloqueHielo::Clonar(UWorld* Mundo, const FVector& Posicion)
@@ -58,4 +47,23 @@ AActor* ABloqueHielo::Clonar(UWorld* Mundo, const FVector& Posicion)
 	ABloqueHielo* Nuevo = Mundo->SpawnActor<ABloqueHielo>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
 
 	return Nuevo;
+}
+
+void ABloqueHielo::MovimientoUnico(float DeltaTime)
+{
+	if (PMoverse) 
+	{
+		TiempoMovimiento += DeltaTime;
+
+
+		float Amplitud = 20.0f;          // Altura de la onda
+		float Frecuencia = 1.5f;         // Velocidad del movimiento
+
+		float DesplazamientoZ = FMath::Sin(TiempoMovimiento * Frecuencia) * Amplitud;
+
+		FVector NuevaPos = PosicionInicial;
+		NuevaPos.Z += DesplazamientoZ;
+
+		SetActorLocation(NuevaPos);
+	}
 }

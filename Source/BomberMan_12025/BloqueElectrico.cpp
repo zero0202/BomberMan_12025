@@ -56,32 +56,7 @@ void ABloqueElectrico::BeginPlay()
 void ABloqueElectrico::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	// Obtener la posición actual del bloque
-	FVector NuevaPosicion = GetActorLocation();
-
-	// Mover hacia la derecha (abrir) o hacia la izquierda (cerrar) según el estado
-	if (bAbriendoM)
-	{
-		// Mover hacia la derecha (abrir)
-		NuevaPosicion.X += VelocidadMovimiento * DeltaTime;
-		if (NuevaPosicion.X >= PosicionInicial.X + DistanciaApertura)
-		{
-			bAbriendoM = false; // Cambiar dirección a cerrar
-		}
-	}
-	else
-	{
-		// Mover hacia la izquierda (cerrar)
-		NuevaPosicion.X -= VelocidadMovimiento * DeltaTime;
-		if (NuevaPosicion.X <= PosicionInicial.X)
-		{
-			bAbriendoM = true; // Cambiar dirección a abrir
-		}
-	}
-
-	// Aplicar la nueva posición
-	SetActorLocation(NuevaPosicion);
+	MovimientoUnico(DeltaTime);
 }
 
 AActor* ABloqueElectrico::Clonar(UWorld* Mundo, const FVector& Posicion)
@@ -93,4 +68,38 @@ AActor* ABloqueElectrico::Clonar(UWorld* Mundo, const FVector& Posicion)
 
 
 	return Nuevo;
+}
+
+void ABloqueElectrico::MovimientoUnico(float DeltaTime)
+{
+	if (PMoverses)
+	{
+
+		// Obtener la posición actual del bloque
+		FVector NuevaPosicion = GetActorLocation();
+
+		// Mover hacia la derecha (abrir) o hacia la izquierda (cerrar) según el estado
+		if (bAbriendoM)
+		{
+			// Mover hacia la derecha (abrir)
+			NuevaPosicion.X += VelocidadMovimiento * DeltaTime;
+			if (NuevaPosicion.X >= PosicionInicial.X + DistanciaApertura)
+			{
+				bAbriendoM = false; // Cambiar dirección a cerrar
+			}
+		}
+		else
+		{
+			// Mover hacia la izquierda (cerrar)
+			NuevaPosicion.X -= VelocidadMovimiento * DeltaTime;
+			if (NuevaPosicion.X <= PosicionInicial.X)
+			{
+				bAbriendoM = true; // Cambiar dirección a abrir
+			}
+		}
+
+		// Aplicar la nueva posición
+		SetActorLocation(NuevaPosicion);
+
+	}
 }

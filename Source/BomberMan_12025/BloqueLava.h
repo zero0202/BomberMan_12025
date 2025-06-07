@@ -28,7 +28,8 @@ public:
 
 	float TiempoLava;
 	FVector PosicionInicial;
-
+	bool PMover = true; 
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
 	float TiempoMovimiento;
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

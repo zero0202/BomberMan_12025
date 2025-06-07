@@ -51,14 +51,7 @@ void ABloqueConcreto::BeginPlay()
 void ABloqueConcreto::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (bPuedeGirar)
-	{
-		FRotator NewRotation = GetActorRotation();
-		NewRotation.Yaw += RotationSpeed * DeltaTime;
-		SetActorRotation(NewRotation);
-	}
-
+	MovimientoUnico(DeltaTime);
 }
 
 AActor* ABloqueConcreto::Clonar(UWorld* Mundo, const FVector& Posicion)
@@ -67,7 +60,21 @@ AActor* ABloqueConcreto::Clonar(UWorld* Mundo, const FVector& Posicion)
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueConcreto* Nuevo = Mundo->SpawnActor<ABloqueConcreto>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
+	if (dureza+20 >= 100) {
 
+		Nuevo->Destroy();
+	}
 	return Nuevo;
 }
+
+void ABloqueConcreto::MovimientoUnico(float DeltaTime)
+{
+	if (bPuedeGirar)
+	{
+		FRotator NewRotation = GetActorRotation();
+		NewRotation.Yaw += RotationSpeed * DeltaTime;
+		SetActorRotation(NewRotation);
+	}
+}
+
 

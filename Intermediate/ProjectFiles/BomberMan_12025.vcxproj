@@ -276,7 +276,10 @@
     <None Include="..\..\BomberMan_12025.uproject"/>
     <None Include="..\..\Source\BomberMan_12025.Target.cs"/>
     <None Include="..\..\Source\BomberMan_12025Editor.Target.cs"/>
+    <None Include="..\..\.gitattributes"/>
+    <None Include="..\..\.gitignore"/>
     <None Include="..\..\.vsconfig"/>
+    <None Include="..\..\Source.rar"/>
     <None Include="..\..\Config\DefaultEditor.ini"/>
     <None Include="..\..\Config\DefaultEditorPerProjectUserSettings.ini"/>
     <None Include="..\..\Config\DefaultEngine.ini"/>
@@ -343,6 +346,18 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\Enemigo.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloque.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloque.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloqueCuadrados.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueCuadrados.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.h"/>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

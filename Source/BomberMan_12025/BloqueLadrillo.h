@@ -32,7 +32,8 @@ public:
 	float amplitud;
 	float PosicionInicial;
 
+	float dureza = 50;
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion) override;
 
-
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

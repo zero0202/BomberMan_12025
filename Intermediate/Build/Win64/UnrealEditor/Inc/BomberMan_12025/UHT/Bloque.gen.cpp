@@ -12,11 +12,96 @@ void EmptyLinkFunctionForGeneratedCodeBloque() {}
 // Begin Cross Module References
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque_NoRegister();
+BOMBERMAN_12025_API UEnum* Z_Construct_UEnum_BomberMan_12025_EBloqueTipo();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystemComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
 UPackage* Z_Construct_UPackage__Script_BomberMan_12025();
 // End Cross Module References
+
+// Begin Enum EBloqueTipo
+static FEnumRegistrationInfo Z_Registration_Info_UEnum_EBloqueTipo;
+static UEnum* EBloqueTipo_StaticEnum()
+{
+	if (!Z_Registration_Info_UEnum_EBloqueTipo.OuterSingleton)
+	{
+		Z_Registration_Info_UEnum_EBloqueTipo.OuterSingleton = GetStaticEnum(Z_Construct_UEnum_BomberMan_12025_EBloqueTipo, (UObject*)Z_Construct_UPackage__Script_BomberMan_12025(), TEXT("EBloqueTipo"));
+	}
+	return Z_Registration_Info_UEnum_EBloqueTipo.OuterSingleton;
+}
+template<> BOMBERMAN_12025_API UEnum* StaticEnum<EBloqueTipo>()
+{
+	return EBloqueTipo_StaticEnum();
+}
+struct Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Enum_MetaDataParams[] = {
+		{ "Acero.DisplayName", "Acero" },
+		{ "Acero.Name", "EBloqueTipo::Acero" },
+		{ "Arena.DisplayName", "Arena" },
+		{ "Arena.Name", "EBloqueTipo::Arena" },
+		{ "BlueprintType", "true" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// Enumeracion definida \n" },
+#endif
+		{ "Concreto.DisplayName", "Concreto" },
+		{ "Concreto.Name", "EBloqueTipo::Concreto" },
+		{ "Electrico.DisplayName", "Electrico" },
+		{ "Electrico.Name", "EBloqueTipo::Electrico" },
+		{ "Hielo.DisplayName", "Hielo" },
+		{ "Hielo.Name", "EBloqueTipo::Hielo" },
+		{ "Hongo.DisplayName", "Hongo" },
+		{ "Hongo.Name", "EBloqueTipo::Hongo" },
+		{ "Ladrillo.DisplayName", "Ladrillo" },
+		{ "Ladrillo.Name", "EBloqueTipo::Ladrillo" },
+		{ "Lava.DisplayName", "Lava" },
+		{ "Lava.Name", "EBloqueTipo::Lava" },
+		{ "Madera.DisplayName", "Madera" },
+		{ "Madera.Name", "EBloqueTipo::Madera" },
+		{ "ModuleRelativePath", "Bloque.h" },
+		{ "Pegajoso.DisplayName", "Pegajoso" },
+		{ "Pegajoso.Name", "EBloqueTipo::Pegajoso" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "Enumeracion definida" },
+#endif
+	};
+#endif // WITH_METADATA
+	static constexpr UECodeGen_Private::FEnumeratorParam Enumerators[] = {
+		{ "EBloqueTipo::Madera", (int64)EBloqueTipo::Madera },
+		{ "EBloqueTipo::Concreto", (int64)EBloqueTipo::Concreto },
+		{ "EBloqueTipo::Ladrillo", (int64)EBloqueTipo::Ladrillo },
+		{ "EBloqueTipo::Acero", (int64)EBloqueTipo::Acero },
+		{ "EBloqueTipo::Lava", (int64)EBloqueTipo::Lava },
+		{ "EBloqueTipo::Hielo", (int64)EBloqueTipo::Hielo },
+		{ "EBloqueTipo::Electrico", (int64)EBloqueTipo::Electrico },
+		{ "EBloqueTipo::Arena", (int64)EBloqueTipo::Arena },
+		{ "EBloqueTipo::Hongo", (int64)EBloqueTipo::Hongo },
+		{ "EBloqueTipo::Pegajoso", (int64)EBloqueTipo::Pegajoso },
+	};
+	static const UECodeGen_Private::FEnumParams EnumParams;
+};
+const UECodeGen_Private::FEnumParams Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::EnumParams = {
+	(UObject*(*)())Z_Construct_UPackage__Script_BomberMan_12025,
+	nullptr,
+	"EBloqueTipo",
+	"EBloqueTipo",
+	Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::Enumerators,
+	RF_Public|RF_Transient|RF_MarkAsNative,
+	UE_ARRAY_COUNT(Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::Enumerators),
+	EEnumFlags::None,
+	(uint8)UEnum::ECppForm::EnumClass,
+	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::Enum_MetaDataParams), Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::Enum_MetaDataParams)
+};
+UEnum* Z_Construct_UEnum_BomberMan_12025_EBloqueTipo()
+{
+	if (!Z_Registration_Info_UEnum_EBloqueTipo.InnerSingleton)
+	{
+		UECodeGen_Private::ConstructUEnum(Z_Registration_Info_UEnum_EBloqueTipo.InnerSingleton, Z_Construct_UEnum_BomberMan_12025_EBloqueTipo_Statics::EnumParams);
+	}
+	return Z_Registration_Info_UEnum_EBloqueTipo.InnerSingleton;
+}
+// End Enum EBloqueTipo
 
 // Begin Class ABloque
 void ABloque::StaticRegisterNativesABloque()
@@ -104,13 +189,16 @@ ABloque::~ABloque() {}
 // Begin Registration
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics
 {
+	static constexpr FEnumRegisterCompiledInInfo EnumInfo[] = {
+		{ EBloqueTipo_StaticEnum, TEXT("EBloqueTipo"), &Z_Registration_Info_UEnum_EBloqueTipo, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2260843510U) },
+	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
 		{ Z_Construct_UClass_ABloque, ABloque::StaticClass, TEXT("ABloque"), &Z_Registration_Info_UClass_ABloque, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloque), 1565274856U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_675964656(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_672629485(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::ClassInfo),
 	nullptr, 0,
-	nullptr, 0);
+	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::EnumInfo));
 // End Registration
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

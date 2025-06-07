@@ -59,13 +59,7 @@ void ABloqueLava::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	TiempoLava += DeltaTime;
-
-	float DesplazamientoZ = FMath::Sin(TiempoLava * 2.0f) * 10.0f; // Subida y bajada suave
-	FVector NuevaPosicion = PosicionInicial;
-	NuevaPosicion.Z += DesplazamientoZ;
-
-	SetActorLocation(NuevaPosicion);
+	MovimientoUnico(DeltaTime);
 }
 
 AActor* ABloqueLava::Clonar(UWorld* Mundo, const FVector& Posicion)
@@ -76,4 +70,18 @@ AActor* ABloqueLava::Clonar(UWorld* Mundo, const FVector& Posicion)
 	ABloqueLava* Nuevo = Mundo->SpawnActor<ABloqueLava>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
 
 	return Nuevo;
+}
+
+void ABloqueLava::MovimientoUnico(float DeltaTime)
+{
+	if (PMover)
+	{
+		TiempoLava += DeltaTime;
+
+		float DesplazamientoZ = FMath::Sin(TiempoLava * 2.0f) * 10.0f; // Subida y bajada suave
+		FVector NuevaPosicion = PosicionInicial;
+		NuevaPosicion.Z += DesplazamientoZ;
+
+		SetActorLocation(NuevaPosicion);
+	}
 }

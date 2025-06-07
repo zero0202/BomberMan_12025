@@ -24,7 +24,7 @@ public:
 public:
 
 	UParticleSystemComponent* ParticulasElectricas;
-
+	bool PMoverses = true;
 	bool bAbriendoM;
 	float VelocidadMovimiento;
 	float DistanciaApertura; // Distancia máxima al abrir
@@ -32,5 +32,5 @@ public:
 
 	// Implementación del patrón Prototype
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion)  override;
-
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

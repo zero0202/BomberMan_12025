@@ -40,6 +40,15 @@ void ABloque::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (MGrupal)
+	{
+		MovimientoGrupal(DeltaTime);
+	}
+	else
+	{
+		MovimientoUnico(DeltaTime);
+	}
+
 }
 
 void ABloque::AjustarTamano(FVector NuevoTamano)
@@ -48,6 +57,41 @@ void ABloque::AjustarTamano(FVector NuevoTamano)
 	{
 		MeshBloque->SetWorldScale3D(NuevoTamano);
 	}
+}
+void ABloque::MovimientoUnico(float DeltaTime)
+{
+}
+void ABloque::MovimientoGrupal(float DeltaTime)
+{
+	FVector Pos = GetActorLocation();
+
+	// Movimiento vertical sincronizado
+	float Time = GetWorld()->GetTimeSeconds();
+	float AmplitudGlobal = 50.0f;
+	float ZOffset = FMath::Sin(Time * 2.0f) * AmplitudGlobal;
+
+	Pos.Z = PosicionInicial.Z + ZOffset;
+
+	SetActorLocation(Pos);
+
+	/* 
+	 FVector Pos = GetActorLocation();
+    float Desplazamiento = FMath::Sin(GetWorld()->TimeSeconds * 2.0f) * 20.0f;
+    Pos.Z += Desplazamiento;
+    SetActorLocation(Pos);
+	*/
+}
+void ABloque::SetTipoBloque(EBloqueTipo NuevoTipo)
+{
+	TipoBloque = NuevoTipo;
+}
+EBloqueTipo ABloque::GetTipoBloque()
+{
+	return TipoBloque;
+}
+int ABloque::GetID()
+{
+	return IDBloque;
 }
 /*
 ABloque* ABloque::Clonar(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion)

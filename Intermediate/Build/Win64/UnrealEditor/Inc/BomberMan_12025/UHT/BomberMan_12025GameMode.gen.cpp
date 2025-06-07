@@ -37,11 +37,11 @@ struct Z_Construct_UClass_ABomberMan_12025GameMode_Statics
 	};
 	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_BloquesA_MetaData[] = {
 #if !UE_BUILD_SHIPPING
-		{ "Comment", "//Para bloque\n" },
+		{ "Comment", "//Para bloque Factory Method\n" },
 #endif
 		{ "ModuleRelativePath", "BomberMan_12025GameMode.h" },
 #if !UE_BUILD_SHIPPING
-		{ "ToolTip", "Para bloque" },
+		{ "ToolTip", "Para bloque Factory Method" },
 #endif
 	};
 #endif // WITH_METADATA
@@ -101,10 +101,10 @@ ABomberMan_12025GameMode::~ABomberMan_12025GameMode() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BomberMan_12025GameMode_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABomberMan_12025GameMode, ABomberMan_12025GameMode::StaticClass, TEXT("ABomberMan_12025GameMode"), &Z_Registration_Info_UClass_ABomberMan_12025GameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_12025GameMode), 1778904562U) },
+		{ Z_Construct_UClass_ABomberMan_12025GameMode, ABomberMan_12025GameMode::StaticClass, TEXT("ABomberMan_12025GameMode"), &Z_Registration_Info_UClass_ABomberMan_12025GameMode, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABomberMan_12025GameMode), 1653601826U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BomberMan_12025GameMode_h_1637941661(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BomberMan_12025GameMode_h_971245771(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BomberMan_12025GameMode_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BomberMan_12025GameMode_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

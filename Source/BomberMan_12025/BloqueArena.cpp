@@ -54,24 +54,8 @@ void ABloqueArena::BeginPlay()
 void ABloqueArena::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (PuedeMoverseA)
-	{
-		FVector PosicionActual = GetActorLocation();
-
-		// Mover hacia arriba o abajo según la dirección
-		PosicionActual.Z += Direccion * velocidadA * DeltaTime;
-
-		float DistanciaZ = PosicionActual.Z - PosicionInicial.Z;
-		// Verificar si alcanzó el límite de movimiento
-		if (DistanciaZ >= Amplitud || DistanciaZ <= -Amplitud)
-		{
-			Direccion *= -1.0f;
-		}
-
-		// Aplicar la nueva posición
-		SetActorLocation(PosicionActual);
-	}
+	MovimientoUnico(DeltaTime);
+	
 }
 
 void ABloqueArena::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -92,4 +76,25 @@ AActor* ABloqueArena::Clonar(UWorld* Mundo, const FVector& Posicion)
 	ABloqueArena* Nuevo = Mundo->SpawnActor<ABloqueArena>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
 
 	return Nuevo;
+}
+
+void ABloqueArena::MovimientoUnico(float DeltaTime)
+{
+	if (PuedeMoverseA)
+	{
+		FVector PosicionActual = GetActorLocation();
+
+		// Mover hacia arriba o abajo según la dirección
+		PosicionActual.Z += Direccion * velocidadA * DeltaTime;
+
+		float DistanciaZ = PosicionActual.Z - PosicionInicial.Z;
+		// Verificar si alcanzó el límite de movimiento
+		if (DistanciaZ >= Amplitud || DistanciaZ <= -Amplitud)
+		{
+			Direccion *= -1.0f;
+		}
+
+		// Aplicar la nueva posición
+		SetActorLocation(PosicionActual);
+	}
 }

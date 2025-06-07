@@ -88,3 +88,8 @@ AActor* ABloquePegajoso::Clonar(UWorld* Mundo, const FVector& Posicion)
 	return Nuevo;
 }
 
+void ABloquePegajoso::MovimientoUnico(float DeltaTime)
+{
+
+}
+

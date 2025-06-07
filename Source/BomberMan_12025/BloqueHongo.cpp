@@ -62,3 +62,7 @@ AActor* ABloqueHongo::Clonar(UWorld* Mundo, const FVector& Posicion)
 	return Nuevo;
 }
 
+void ABloqueHongo::MovimientoUnico(float DeltaTime)
+{
+}
+

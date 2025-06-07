@@ -47,6 +47,23 @@ void ABloqueMadera::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	MovimientoUnico(DeltaTime);
+}
+
+AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion)
+{
+	if (!Mundo) return nullptr;
+
+	FActorSpawnParameters SpawnParams;
+	ABloqueMadera* Nuevo = Mundo->SpawnActor<ABloqueMadera>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
+
+	
+	return Nuevo;
+	
+}
+
+void ABloqueMadera::MovimientoUnico(float DeltaTime)
+{
 	if (MoverBloque) {
 		// Obtener la posición actual del bloque
 		FVector NuevaPosicion = GetActorLocation();
@@ -74,16 +91,6 @@ void ABloqueMadera::Tick(float DeltaTime)
 		// Aplicar la nueva posición
 		SetActorLocation(NuevaPosicion);
 	}
-}
-
-AActor* ABloqueMadera::Clonar(UWorld* Mundo, const FVector& Posicion)
-{
-	if (!Mundo) return nullptr;
-
-	FActorSpawnParameters SpawnParams;
-	ABloqueMadera* Nuevo = Mundo->SpawnActor<ABloqueMadera>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
-
-	return Nuevo;
 }
 
 

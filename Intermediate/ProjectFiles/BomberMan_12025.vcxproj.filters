@@ -11,7 +11,10 @@
     <None Include="..\..\Source\BomberMan_12025Editor.Target.cs">
       <Filter>Source</Filter>
     </None>
+    <None Include="..\..\.gitattributes" />
+    <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Source.rar" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -124,6 +127,24 @@
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\Enemigo.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloque.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloque.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloqueCuadrados.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueCuadrados.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">

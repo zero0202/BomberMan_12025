@@ -41,5 +41,5 @@ protected:
 public:
 	// Implementación del patrón Prototype
 	virtual AActor* Clonar(UWorld* Mundo, const FVector& Posicion)  override;
-
+	virtual void MovimientoUnico(float DeltaTime) override;
 };

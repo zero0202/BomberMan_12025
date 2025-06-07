@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_12025_Bloque_generated_h
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_12_INCLASS_NO_PURE_DECLS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloque(); \
 	friend struct Z_Construct_UClass_ABloque_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(ABloque)
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_12_ENHANCED_CONSTRUCTORS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABloque(ABloque&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~ABloque();
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_9_PROLOG
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_12_GENERATED_BODY \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_24_PROLOG
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_12_INCLASS_NO_PURE_DECLS \
-	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_12_ENHANCED_CONSTRUCTORS \
+	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_INCLASS_NO_PURE_DECLS \
+	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -50,5 +50,21 @@ template<> BOMBERMAN_12025_API UClass* StaticClass<class ABloque>();
 #undef CURRENT_FILE_ID
 #define CURRENT_FILE_ID FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h
 
+
+#define FOREACH_ENUM_EBLOQUETIPO(op) \
+	op(EBloqueTipo::Madera) \
+	op(EBloqueTipo::Concreto) \
+	op(EBloqueTipo::Ladrillo) \
+	op(EBloqueTipo::Acero) \
+	op(EBloqueTipo::Lava) \
+	op(EBloqueTipo::Hielo) \
+	op(EBloqueTipo::Electrico) \
+	op(EBloqueTipo::Arena) \
+	op(EBloqueTipo::Hongo) \
+	op(EBloqueTipo::Pegajoso) 
+
+enum class EBloqueTipo : uint8;
+template<> struct TIsUEnumClass<EBloqueTipo> { enum { Value = true }; };
+template<> BOMBERMAN_12025_API UEnum* StaticEnum<EBloqueTipo>();
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS

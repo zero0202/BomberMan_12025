@@ -33,10 +33,12 @@ public:
 
 	
 
-	TSubclassOf<AFabricaBloque> FabricaRedonda;
-	TSubclassOf<AFabricaBloque> FabricaCuadrada;
-	AFabricaBloque* Fabrica;
-
+	//TSubclassOf<AFabricaBloque> FabricaRedonda;
+	//TSubclassOf<AFabricaBloque> FabricaCuadrada;
+	ABloque* BloqueRedondo;
+	ABloque* BloqueCuadrado;
+	AFabricaBloque* FabricaRedondo;
+	AFabricaBloque* FabricaCuadrado;
 	//Para clonar bloques
 	void Prototipos();
 	TMap<int, AActor*> MapaPrototipos;

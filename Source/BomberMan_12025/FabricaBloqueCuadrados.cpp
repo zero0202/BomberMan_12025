@@ -30,9 +30,12 @@ void AFabricaBloqueCuadrados::Tick(float DeltaTime)
 
 ABloque* AFabricaBloqueCuadrados::CrearBloque(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion, EBloqueTipo TipoBloque, int ID)
 {
-	if (!Mundo) return nullptr;
-
-	ABloque* BloqueCreadoR = nullptr;
+	if (!Mundo)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Mundo es nullptr")));
+		return nullptr;
+	}
+		
 
 	switch (TipoBloque)
 	{
@@ -57,7 +60,8 @@ ABloque* AFabricaBloqueCuadrados::CrearBloque(UWorld* Mundo, const FVector& Posi
 		break;
 
 	default:
-		UE_LOG(LogTemp, Warning, TEXT("Tipo de bloque no reconocido"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Bloque no reconocido")));
+
 		return nullptr;
 	}
 

@@ -32,11 +32,12 @@ ABloque* AFabricaBloqueRedondos::CrearBloque(UWorld* Mundo, const FVector& Posic
 {
 	if (!Mundo) 
 	{
-		UE_LOG(LogTemp, Error, TEXT("CrearBloque: Mundo es nullptr."));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("Mundo es nullptr")));
+		
 		return nullptr;
 	}
 
-	ABloque* BloqueCreado = nullptr;
+	
 
 	switch (TipoBloque)
 	{
@@ -61,7 +62,7 @@ ABloque* AFabricaBloqueRedondos::CrearBloque(UWorld* Mundo, const FVector& Posic
 		break;
 
 	default:
-		UE_LOG(LogTemp, Warning, TEXT("Tipo de bloque no reconocido"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.0f, FColor::Red, FString::Printf(TEXT("No reconocido el bloque")));
 		return nullptr;
 	}
 

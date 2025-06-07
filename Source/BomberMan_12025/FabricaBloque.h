@@ -11,8 +11,8 @@ UCLASS()
 class BOMBERMAN_12025_API AFabricaBloque : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AFabricaBloque();
 
@@ -20,13 +20,14 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 
 
 	virtual ABloque* CrearBloque(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion, EBloqueTipo TipoBloque, int ID) PURE_VIRTUAL(AFabricaBloque::CrearBloque, return nullptr;);
+	ABloque* CargarBloque(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion, EBloqueTipo TipoBloque, int ID);
 
 	//ABloque* ConstruirBloque(UWorld* Mundo);
 };

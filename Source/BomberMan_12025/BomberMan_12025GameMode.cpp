@@ -36,10 +36,14 @@ void ABomberMan_12025GameMode::BeginPlay()
 {
     Super::BeginPlay();
 
-    if (!FabricaRedonda)
+    //UWorld* World = GetWorld();
+
+    if (!FabricaRedondo)
     {
-        Fabrica = GetWorld()->SpawnActor<AFabricaBloque>(AFabricaBloque::StaticClass());
+        FabricaRedondo = GetWorld()->SpawnActor<AFabricaBloqueRedondos>(AFabricaBloqueRedondos::StaticClass());
+        
     }
+
 
 
     GenerarMapaDesdeCodigo();
@@ -196,18 +200,18 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
             default: continue;
             }
 
-            if (Fabrica)
+            if (FabricaRedondo)
             {
                 FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
                 FRotator Rotacion = FRotator::ZeroRotator;
                 UWorld* World = GetWorld();
 
-                ABloque* Bloque = Fabrica->CrearBloque(World, Posicion, Rotacion, TipoBloque, ID);
+                BloqueRedondo = FabricaRedondo->CargarBloque(World, Posicion, Rotacion, TipoBloque, ID);
 
-                if (Bloque)
+                if (BloqueRedondo)
                 {
-                    BloquesA.Add(Bloque);
-                    MapaBloques.Add(ID, Bloque);
+                    BloquesA.Add(BloqueRedondo);
+                    MapaBloques.Add(ID, BloqueRedondo);
                     ID++;
                 }
             }

@@ -25,6 +25,9 @@ void AFabricaBloque::Tick(float DeltaTime)
 
 }
 
+ABloque* AFabricaBloque::CargarBloque(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion, EBloqueTipo TipoBloque, int ID)
+{
+	ABloque* Bloque = CrearBloque(Mundo, Posicion,Rotacion, TipoBloque, ID);
 
-
-
+	return Bloque;
+}

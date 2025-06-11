@@ -37,8 +37,6 @@ ABloque* AFabricaBloqueRedondos::CrearBloque(UWorld* Mundo, const FVector& Posic
 		return nullptr;
 	}
 
-	
-
 	switch (TipoBloque)
 	{
 	case EBloqueTipo::Madera:

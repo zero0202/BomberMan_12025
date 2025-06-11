@@ -39,8 +39,7 @@ public:
 	virtual void Tick(float DeltaTime) override;
 protected:
 
-	//Tipo de bloque
-	EBloqueTipo TipoBloque;
+	
 	//malla del bloque
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloque;
@@ -49,6 +48,9 @@ protected:
 
 	FVector PosicionInicial;
 public:
+
+	//Tipo de bloque
+	EBloqueTipo TipoBloque;
 	bool bDestruible = true;
 	bool MGrupal = false; 
 	int IDBloque;

@@ -37,23 +37,27 @@ void ABomberMan_12025GameMode::BeginPlay()
     Super::BeginPlay();
 
     //UWorld* World = GetWorld();
-
+    MoverTodos(EBloqueTipo::Madera);
     if (!FabricaRedondo)
     {
         FabricaRedondo = GetWorld()->SpawnActor<AFabricaBloqueRedondos>(AFabricaBloqueRedondos::StaticClass());
         
     }
+    if (!FabricaCuadrado) 
+    {
+        FabricaCuadrado = GetWorld()->SpawnActor<AFabricaBloqueCuadrados>(AFabricaBloqueCuadrados::StaticClass());
 
+    }
 
 
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
-   // Prototipos();
-   // ClonarBloques(TFilas, TColumnas);
+    Prototipos();
+    ClonarBloques(TFilas, TColumnas);
 
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
-  //  GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
+    //GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
 
 }
 void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
@@ -181,7 +185,6 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
                 PuntosPatrullaLibres.Add(PosicionLibre);
                 continue;
 
-
             }
             // Traducir entero a EBloqueTipo (ajusta según tu enumeración real)
             EBloqueTipo TipoBloque;
@@ -200,12 +203,11 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
             default: continue;
             }
 
+            FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
+            FRotator Rotacion = FRotator::ZeroRotator;
+            UWorld* World = GetWorld();
             if (FabricaRedondo)
             {
-                FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);
-                FRotator Rotacion = FRotator::ZeroRotator;
-                UWorld* World = GetWorld();
-
                 BloqueRedondo = FabricaRedondo->CargarBloque(World, Posicion, Rotacion, TipoBloque, ID);
 
                 if (BloqueRedondo)
@@ -215,11 +217,35 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
                     ID++;
                 }
             }
+            // Bloque de FabricaCuadrado (ligeramente desplazado en Z para no solaparse)
+            if (FabricaCuadrado)
+            {
+                FVector PosicionCuadrado = FVector(X * Espaciado, Y * Espaciado, 0.0f);
+                ABloque* NuevoBloqueCuadrado = FabricaCuadrado->CargarBloque(World, PosicionCuadrado, Rotacion, TipoBloque, ID);
+                if (NuevoBloqueCuadrado)
+                {
+                    BloquesA.Add(NuevoBloqueCuadrado);
+                    MapaBloques.Add(ID, NuevoBloqueCuadrado);
+                    ID++;
+                }
+            }
         }
                     
         
     }
 
+}
+
+void ABomberMan_12025GameMode::MoverTodos(EBloqueTipo Tipo)
+{
+    for (ABloque* Bloque : TodosLosBloques)
+    {
+        
+        if (Bloque && Bloque->TipoBloque == Tipo)
+        {
+            Bloque->MGrupal = true;
+        }
+    }
 }
 
 // Inicializa el mapa de prototipos con instancias reales de bloques en el mundo
@@ -244,14 +270,13 @@ void ABomberMan_12025GameMode::Prototipos()
         AgregarPrototipo(2, ABloqueLadrillo::StaticClass());
         AgregarPrototipo(3, ABloqueConcreto::StaticClass());
         AgregarPrototipo(4, ABloqueMadera::StaticClass());
-        /*
         AgregarPrototipo(5, ABloqueLava::StaticClass());
         AgregarPrototipo(6, ABloqueHielo::StaticClass());
         AgregarPrototipo(7, ABloqueElectrico::StaticClass());
         AgregarPrototipo(8, ABloqueHongo::StaticClass());
         AgregarPrototipo(9, ABloqueArena::StaticClass());
-        AgregarPrototipo(9, ABloquePegajoso::StaticClass());
-        */
+        AgregarPrototipo(10, ABloquePegajoso::StaticClass());
+        
 
 }
 
@@ -270,7 +295,7 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 
             // Calcula la posición del clon reflejado en la otra mitad del mapa
             int32 XReflejado = ColumnaCentro - (X - ColumnaCentro);
-            FVector PosicionClonada(XReflejado * TamCelda, Y * TamCelda, 40.f);
+            FVector PosicionClonada(XReflejado * TamCelda, Y * TamCelda, 0.0f);
 
             // Busca el prototipo correspondiente al tipo en el mapa
             if (AActor* Prototipo = MapaPrototipos.FindRef(Tipo))
@@ -283,6 +308,8 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 
                     if (Clon)
                     {
+
+                        
                         // Se actualiza el mapa para registrar el nuevo bloque clonado
                         MapaLaberinto[Y][XReflejado] = Tipo;
                         

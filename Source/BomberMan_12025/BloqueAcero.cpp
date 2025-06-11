@@ -61,10 +61,12 @@ AActor* ABloqueAcero::Clonar(UWorld* Mundo, const FVector& Posicion)
 
 	FActorSpawnParameters SpawnParams;
 	ABloqueAcero* Nuevo = Mundo->SpawnActor<ABloqueAcero>(GetClass(), Posicion, GetActorRotation(), SpawnParams);
+	/*
 	if (dureza + 20 >= 100) {
 
 		Nuevo->Destroy();
 	}
+	*/
 	return Nuevo;
 }
 

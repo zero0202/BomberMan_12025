@@ -32,13 +32,14 @@ public:
 	int ID = 0;
 
 	
-
-	//TSubclassOf<AFabricaBloque> FabricaRedonda;
-	//TSubclassOf<AFabricaBloque> FabricaCuadrada;
 	ABloque* BloqueRedondo;
 	ABloque* BloqueCuadrado;
 	AFabricaBloque* FabricaRedondo;
 	AFabricaBloque* FabricaCuadrado;
+
+	TArray<ABloque*> TodosLosBloques;
+	void MoverTodos(EBloqueTipo Tipo);
+
 	//Para clonar bloques
 	void Prototipos();
 	TMap<int, AActor*> MapaPrototipos;

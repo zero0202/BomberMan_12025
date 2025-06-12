@@ -37,11 +37,11 @@ void ABomberMan_12025GameMode::BeginPlay()
     Super::BeginPlay();
 
     //UWorld* World = GetWorld();
-    MoverTodos(EBloqueTipo::Madera);
-    if (!FabricaRedondo)
-    {
+    
+    if (!FabricaRedondo) 
+    { 
         FabricaRedondo = GetWorld()->SpawnActor<AFabricaBloqueRedondos>(AFabricaBloqueRedondos::StaticClass());
-        
+         
     }
     if (!FabricaCuadrado) 
     {

@@ -52,7 +52,7 @@ public:
 	//Tipo de bloque
 	EBloqueTipo TipoBloque;
 	bool bDestruible = true;
-	bool MGrupal = false; 
+	bool MGrupal = true; 
 	int IDBloque;
 	static int ContadorIDs;
 	virtual void AjustarTamano(FVector NuevoTamano);

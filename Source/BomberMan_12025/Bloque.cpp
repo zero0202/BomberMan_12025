@@ -47,6 +47,7 @@ void ABloque::Tick(float DeltaTime)
 	else
 	{
 		MovimientoUnico(DeltaTime);
+
 	}
 
 }

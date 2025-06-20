@@ -342,10 +342,34 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\BomberMan_12025GameMode.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorVelocidad.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\DecoradorVelocidad.h"/>
     <ClCompile Include="..\..\Source\BomberMan_12025\Enemigo.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\Enemigo.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoGolen.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoGolen.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoMedusa.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoMedusa.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoSaltarin.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoSaltarin.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoTortuga.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoTortuga.h"/>
     <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloque.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -358,6 +382,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.h"/>
+    <ClCompile Include="..\..\Source\BomberMan_12025\IComponente.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IComponente.h"/>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

@@ -8,40 +8,39 @@
 #include "BomberMan_12025GameMode.h"
 #include "Kismet/GameplayStatics.h"
 
-// Sets default values
+
 AEnemigo::AEnemigo()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+
 	PrimaryActorTick.bCanEverTick = true;
 
-	// Crear el Static Mesh
+	
 	MeshEnemigo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshEnemigo"));
 	MeshEnemigo->SetupAttachment(RootComponent);
 
-	//PARA LA PAERTICULAS
+	
 	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
 	ParticleSystem->SetupAttachment(RootComponent);
 
+
+
+
 }
 
-// Called when the game starts or when spawned
 void AEnemigo::BeginPlay()
 {
 	Super::BeginPlay();
-	//GameModeReference = Cast<ABomberMan_12025GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
+	GameModeReference = Cast<ABomberMan_12025GameMode>(UGameplayStatics::GetGameMode(GetWorld()));
 	
 }
 
-// Called every frame
 void AEnemigo::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
-/*
 bool AEnemigo::EsEspacioLibre(FVector Pos)
 {
-	/*
 	if (!GameModeReference) return false;
 
 	int32 Col = FMath::RoundToInt(Pos.X / Espaciado);
@@ -54,25 +53,25 @@ bool AEnemigo::EsEspacioLibre(FVector Pos)
 	}
 
 	return false;
-	
 }
-*/
-/*
 void AEnemigo::AjustarTamano(FVector NuevoTamano)
 {
 	MeshEnemigo->SetWorldScale3D(NuevoTamano);
 }
-
-void AEnemigo::RecibirDanio(float Danio)
+void AEnemigo::RecibirDanio(float Cantidad)
 {
-}
 
+}
 void AEnemigo::Morir()
 {
 }
-
 void AEnemigo::MoverEnemigo(float DeltaTime)
 {
+
 }
 
-*/
+void AEnemigo::ModificarVelocidad(float Vel)
+{
+	VelocidadMovimineto = Vel;
+	UE_LOG(LogTemp, Warning, TEXT("Nueva velocidad enemigo: %f"), VelocidadMovimineto);
+}

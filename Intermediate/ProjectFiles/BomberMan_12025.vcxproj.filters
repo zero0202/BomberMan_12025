@@ -123,10 +123,46 @@
     <ClInclude Include="..\..\Source\BomberMan_12025\BomberMan_12025GameMode.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorVelocidad.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\DecoradorVelocidad.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\Enemigo.cpp">
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\Enemigo.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoGolen.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoGolen.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoMedusa.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoMedusa.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoSaltarin.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoSaltarin.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\EnemigoTortuga.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\EnemigoTortuga.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\FabricaBloque.cpp">
@@ -145,6 +181,12 @@
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\FabricaBloqueRedondos.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\IComponente.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IComponente.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">

@@ -17,10 +17,17 @@
 #include "BloquePegajoso.h"
 #include "BloqueHielo.h"
 #include "BloqueHongo.h"
+#include "Enemigo.h"
+#include "EnemigoMedusa.h"
+#include "EnemigoSaltarin.h"
+#include "EnemigoTortuga.h"
+#include "EnemigoGolen.h"
 #include "IPrototypeBloque.h"
 #include "FabricaBloque.h"
 #include "FabricaBloqueRedondos.h"
 #include "FabricaBloqueCuadrados.h"
+#include "IComponente.h"
+#include "DecoradorVelocidad.h"
 
 
 ABomberMan_12025GameMode::ABomberMan_12025GameMode()
@@ -36,25 +43,19 @@ void ABomberMan_12025GameMode::BeginPlay()
 {
     Super::BeginPlay();
 
-    //UWorld* World = GetWorld();
-    
-    if (!FabricaRedondo) 
-    { 
-        FabricaRedondo = GetWorld()->SpawnActor<AFabricaBloqueRedondos>(AFabricaBloqueRedondos::StaticClass());
-         
-    }
-    if (!FabricaCuadrado) 
+    ADecoradorVelocidad* Decorador = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
+
+    if (Decorador)
     {
-        FabricaCuadrado = GetWorld()->SpawnActor<AFabricaBloqueCuadrados>(AFabricaBloqueCuadrados::StaticClass());
-
+        Decorador->InicializarVelocidad(Cast<IIComponente>(this), 500.0f, 5.0f); // velocidad 1200, 5 seg
     }
 
-
+    FabricaBloquesMap();
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
     Prototipos();
     ClonarBloques(TFilas, TColumnas);
-
+	SpawnEnemigos();
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
     //GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
@@ -356,6 +357,51 @@ void ABomberMan_12025GameMode::iniciarEliminarBloque()
     GetWorld()->GetTimerManager().SetTimer(TimerEliminarBloque, this, &ABomberMan_12025GameMode::EliminarBloque, 4.0f, true);
     GetWorld()->GetTimerManager().SetTimer(TimerEliminarBloque, this, &ABomberMan_12025GameMode::EliminarBloque, 3.0f, true);
 
+}
+
+void ABomberMan_12025GameMode::FabricaBloquesMap()
+{
+    if (!FabricaRedondo)
+    {
+        FabricaRedondo = GetWorld()->SpawnActor<AFabricaBloqueRedondos>(AFabricaBloqueRedondos::StaticClass());
+
+    }
+    if (!FabricaCuadrado)
+    {
+        FabricaCuadrado = GetWorld()->SpawnActor<AFabricaBloqueCuadrados>(AFabricaBloqueCuadrados::StaticClass());
+
+    }
+
+}
+
+void ABomberMan_12025GameMode::SpawnEnemigos()
+{
+	if (PuntosPatrullaLibres.Num() == 0)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("No hay puntos de patrulla libres para spawn de enemigos."));
+		return;
+	}
+	// Limpiar enemigos existentes
+	for (AEnemigo* Enemigo : EnemigosA)
+	{
+		if (Enemigo)
+		{
+			Enemigo->Destroy();
+		}
+	}
+	EnemigosA.Empty();
+	// Crear enemigos
+	for (int32 i = 0; i < 5; ++i) // Cambia el número según tus necesidades
+	{
+		int32 Index = FMath::RandRange(0, PuntosPatrullaLibres.Num() - 1);
+		FVector SpawnLocation = PuntosPatrullaLibres[Index];
+		AEnemigo* NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoMedusa>(AEnemigoMedusa::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+		if (NuevoEnemigo)
+		{
+			EnemigosA.Add(NuevoEnemigo);
+			UE_LOG(LogTemp, Warning, TEXT("Enemigo Medusa spawn en: %s"), *SpawnLocation.ToString());
+		}
+	}
 }
 
 void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()

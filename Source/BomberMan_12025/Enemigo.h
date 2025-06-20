@@ -4,13 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "IComponente.h"
 #include "Enemigo.generated.h"
 
 class UStaticMeshComponent;
 class UParticleSystemComponent;
 class ABomberMan_12025GameMode;
+
 UCLASS()
-class BOMBERMAN_12025_API AEnemigo : public AActor
+class BOMBERMAN_12025_API AEnemigo : public AActor, public IIComponente
 {
 	GENERATED_BODY()
 	
@@ -42,13 +44,17 @@ protected:
 	UPROPERTY(VisibleAnywhere)
 	UParticleSystemComponent* ParticleSystem;
 	ABomberMan_12025GameMode* GameModeReference; // Referencia al modo de juego
-	float Espaciado = 900.0f;
-	//bool EsEspacioLibre(FVector Pos);
+	float Espaciado = 400.0f;
+	bool EsEspacioLibre(FVector Pos);
+
 public:
-/*
+
 	virtual void AjustarTamano(FVector NuevoTamano);
 	virtual void RecibirDanio(float Danio);
 	virtual void Morir();
 	virtual void MoverEnemigo(float DeltaTime);
-	*/
+	
+
+
+	virtual void ModificarVelocidad(float Vel) override;
 };

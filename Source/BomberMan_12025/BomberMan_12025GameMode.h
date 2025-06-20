@@ -51,13 +51,16 @@ public:
 	FTimerHandle TimerInicialBloquesMadera;
 	void EliminarBloque();
 	void iniciarEliminarBloque();
-
-	TArray<AEnemigo*> EnemigosA;//GUARDA LOS ENEMIGOS 
+	void FabricaBloquesMap();
+public:
+	//para enemigos
+	TArray<AEnemigo*> EnemigosA;
 	TArray<FVector> PuntosPatrullaLibres;
-	///void SpawnEnemigos();
+	void SpawnEnemigos();
 
 	void PosicionarJugadorAleatoriamente();
 	FTimerHandle TimerPosicion;
+
 };
 
 

@@ -12,6 +12,7 @@ void EmptyLinkFunctionForGeneratedCodeEnemigo() {}
 // Begin Cross Module References
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_AEnemigo();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_AEnemigo_NoRegister();
+BOMBERMAN_12025_API UClass* Z_Construct_UClass_UIComponente_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystemComponent_NoRegister();
 ENGINE_API UClass* Z_Construct_UClass_UStaticMeshComponent_NoRegister();
@@ -49,6 +50,7 @@ struct Z_Construct_UClass_AEnemigo_Statics
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_ParticleSystem;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<AEnemigo>::IsAbstract,
 	};
@@ -66,6 +68,9 @@ UObject* (*const Z_Construct_UClass_AEnemigo_Statics::DependentSingletons[])() =
 	(UObject* (*)())Z_Construct_UPackage__Script_BomberMan_12025,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_AEnemigo_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_AEnemigo_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UIComponente_NoRegister, (int32)VTABLE_OFFSET(AEnemigo, IIComponente), false },  // 3404882091
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_AEnemigo_Statics::ClassParams = {
 	&AEnemigo::StaticClass,
 	"Engine",
@@ -73,11 +78,11 @@ const UECodeGen_Private::FClassParams Z_Construct_UClass_AEnemigo_Statics::Class
 	DependentSingletons,
 	nullptr,
 	Z_Construct_UClass_AEnemigo_Statics::PropPointers,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
 	0,
 	UE_ARRAY_COUNT(Z_Construct_UClass_AEnemigo_Statics::PropPointers),
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_AEnemigo_Statics::Class_MetaDataParams), Z_Construct_UClass_AEnemigo_Statics::Class_MetaDataParams)
 };
@@ -101,10 +106,10 @@ AEnemigo::~AEnemigo() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Enemigo_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_AEnemigo, AEnemigo::StaticClass, TEXT("AEnemigo"), &Z_Registration_Info_UClass_AEnemigo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemigo), 1706630840U) },
+		{ Z_Construct_UClass_AEnemigo, AEnemigo::StaticClass, TEXT("AEnemigo"), &Z_Registration_Info_UClass_AEnemigo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(AEnemigo), 4285220826U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Enemigo_h_213359402(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Enemigo_h_3144187207(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Enemigo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Enemigo_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

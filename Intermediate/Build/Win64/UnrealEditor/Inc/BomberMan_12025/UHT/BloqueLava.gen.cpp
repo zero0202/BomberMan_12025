@@ -100,10 +100,10 @@ ABloqueLava::~ABloqueLava() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueLava_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueLava, ABloqueLava::StaticClass, TEXT("ABloqueLava"), &Z_Registration_Info_UClass_ABloqueLava, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueLava), 2078389342U) },
+		{ Z_Construct_UClass_ABloqueLava, ABloqueLava::StaticClass, TEXT("ABloqueLava"), &Z_Registration_Info_UClass_ABloqueLava, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueLava), 4110261190U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueLava_h_2949468277(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueLava_h_3715967467(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueLava_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueLava_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

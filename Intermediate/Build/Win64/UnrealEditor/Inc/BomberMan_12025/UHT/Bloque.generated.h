@@ -14,16 +14,22 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define BOMBERMAN_12025_Bloque_generated_h
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_INCLASS_NO_PURE_DECLS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
+	DECLARE_FUNCTION(execRestaurarVida); \
+	DECLARE_FUNCTION(execHacerDanio);
+
+
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesABloque(); \
 	friend struct Z_Construct_UClass_ABloque_Statics; \
 public: \
 	DECLARE_CLASS(ABloque, AActor, COMPILED_IN_FLAGS(0 | CLASS_Config), CASTCLASS_None, TEXT("/Script/BomberMan_12025"), NO_API) \
-	DECLARE_SERIALIZER(ABloque)
+	DECLARE_SERIALIZER(ABloque) \
+	virtual UObject* _getUObject() const override { return const_cast<ABloque*>(this); }
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_ENHANCED_CONSTRUCTORS \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	ABloque(ABloque&&); \
@@ -35,12 +41,13 @@ public: \
 	NO_API virtual ~ABloque();
 
 
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_24_PROLOG
-#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_GENERATED_BODY \
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_25_PROLOG
+#define FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_INCLASS_NO_PURE_DECLS \
-	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_27_ENHANCED_CONSTRUCTORS \
+	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_RPC_WRAPPERS_NO_PURE_DECLS \
+	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_INCLASS_NO_PURE_DECLS \
+	FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_28_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 

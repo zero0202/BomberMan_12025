@@ -87,10 +87,10 @@ ABloqueHielo::~ABloqueHielo() {}
 struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueHielo_h_Statics
 {
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloqueHielo, ABloqueHielo::StaticClass, TEXT("ABloqueHielo"), &Z_Registration_Info_UClass_ABloqueHielo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueHielo), 7004038U) },
+		{ Z_Construct_UClass_ABloqueHielo, ABloqueHielo::StaticClass, TEXT("ABloqueHielo"), &Z_Registration_Info_UClass_ABloqueHielo, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloqueHielo), 3932841492U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueHielo_h_1698677485(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueHielo_h_1094721888(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueHielo_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_BloqueHielo_h_Statics::ClassInfo),
 	nullptr, 0,
 	nullptr, 0);

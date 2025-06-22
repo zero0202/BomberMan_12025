@@ -4,6 +4,9 @@
 #include "Bloque.h"
 #include "Components/StaticMeshComponent.h"
 #include "Particles/ParticleSystemComponent.h"
+#include "MementoConcreto.h"
+#include "Cuidador.h"
+
 
 // Sets default values
 ABloque::ABloque()
@@ -25,13 +28,25 @@ ABloque::ABloque()
 	// Establecer el tamaño inicial del bloque
 	AjustarTamano(FVector(4.0f, 4.0f, 5.0f));
 
+	Vidas = 20;
 }
 
 // Called when the game starts or when spawned
 void ABloque::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	// Crear mi propio cuidador
+	GuardadoCuidador = GetWorld()->SpawnActor<ACuidador>(ACuidador::StaticClass());
+	GuardadoCuidador->Guardar(this);
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Bloque con vida inicial: %d"), Vidas));
+	}
+
+	GetWorldTimerManager().SetTimer(TimerHandle_HacerDanio, this, &ABloque::HacerDanio, 3.f, false);
+	GetWorldTimerManager().SetTimer(TimerHandle_Restaurar, this, &ABloque::RestaurarVida, 5.f, false);
+
 }
 
 
@@ -75,12 +90,6 @@ void ABloque::MovimientoGrupal(float DeltaTime)
 
 	SetActorLocation(Pos);
 
-	/* 
-	 FVector Pos = GetActorLocation();
-    float Desplazamiento = FMath::Sin(GetWorld()->TimeSeconds * 2.0f) * 20.0f;
-    Pos.Z += Desplazamiento;
-    SetActorLocation(Pos);
-	*/
 }
 void ABloque::SetTipoBloque(EBloqueTipo NuevoTipo)
 {
@@ -94,6 +103,47 @@ int ABloque::GetID()
 {
 	return IDBloque;
 }
+
+void ABloque::HacerDanio()
+{
+	Vidas -= 5;
+
+	if (GEngine)
+	{
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, FString::Printf(TEXT("Bloque dañado: vida actual = %d"), Vidas));
+	}
+}
+
+void ABloque::RestaurarVida()
+{
+	if (GuardadoCuidador)
+	{
+		GuardadoCuidador->Cargar(this);
+
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, FString::Printf(TEXT("Vida restaurada: %d"), Vidas));
+		}
+	}
+}
+
+void ABloque::GuardarEstado(IIMemento* SalidaMemento)
+{
+	AMementoConcreto* Memento = Cast<AMementoConcreto>(SalidaMemento);
+	if (Memento)
+	{
+		Memento->Vidas = Vidas;
+	}
+}
+void ABloque::EstablecerVidas(int _vidas)
+{
+	Vidas = _vidas;
+}
+int ABloque::ObtenerVidas()
+{
+	return Vidas;
+}
+
 /*
 ABloque* ABloque::Clonar(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion)
 {

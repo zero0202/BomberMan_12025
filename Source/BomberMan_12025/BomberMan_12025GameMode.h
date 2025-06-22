@@ -60,7 +60,7 @@ public:
 	void DecorarEnemigos();
 	FTimerHandle TimerD;
 
-	void PosicionarJugadorAleatoriamente();
+	//void PosicionarJugadorAleatoriamente();
 	FTimerHandle TimerPosicion;
 
 	//Monedas
@@ -70,6 +70,19 @@ public:
 	class AMonedaOro* Oro;
 	class AMonedaPlatino* Platino;
 	void Monedas();
+
+public:
+/*
+	class ABloque* BloqueControlado;
+
+	class ACuidador* Cuidador;
+
+public:
+
+	void RestaurarBloque();
+	void GuardarJuego();
+	void CargarJuego();
+	*/
 };
 
 

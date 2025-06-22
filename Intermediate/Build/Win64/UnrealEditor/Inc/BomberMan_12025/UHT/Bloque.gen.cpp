@@ -12,6 +12,8 @@ void EmptyLinkFunctionForGeneratedCodeBloque() {}
 // Begin Cross Module References
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque();
 BOMBERMAN_12025_API UClass* Z_Construct_UClass_ABloque_NoRegister();
+BOMBERMAN_12025_API UClass* Z_Construct_UClass_ACuidador_NoRegister();
+BOMBERMAN_12025_API UClass* Z_Construct_UClass_UIOriginandor_NoRegister();
 BOMBERMAN_12025_API UEnum* Z_Construct_UEnum_BomberMan_12025_EBloqueTipo();
 ENGINE_API UClass* Z_Construct_UClass_AActor();
 ENGINE_API UClass* Z_Construct_UClass_UParticleSystemComponent_NoRegister();
@@ -103,9 +105,73 @@ UEnum* Z_Construct_UEnum_BomberMan_12025_EBloqueTipo()
 }
 // End Enum EBloqueTipo
 
+// Begin Class ABloque Function HacerDanio
+struct Z_Construct_UFunction_ABloque_HacerDanio_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Bloque.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABloque_HacerDanio_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABloque, nullptr, "HacerDanio", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABloque_HacerDanio_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABloque_HacerDanio_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABloque_HacerDanio()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABloque_HacerDanio_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABloque::execHacerDanio)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->HacerDanio();
+	P_NATIVE_END;
+}
+// End Class ABloque Function HacerDanio
+
+// Begin Class ABloque Function RestaurarVida
+struct Z_Construct_UFunction_ABloque_RestaurarVida_Statics
+{
+#if WITH_METADATA
+	static constexpr UECodeGen_Private::FMetaDataPairParam Function_MetaDataParams[] = {
+		{ "ModuleRelativePath", "Bloque.h" },
+	};
+#endif // WITH_METADATA
+	static const UECodeGen_Private::FFunctionParams FuncParams;
+};
+const UECodeGen_Private::FFunctionParams Z_Construct_UFunction_ABloque_RestaurarVida_Statics::FuncParams = { (UObject*(*)())Z_Construct_UClass_ABloque, nullptr, "RestaurarVida", nullptr, nullptr, nullptr, 0, 0, RF_Public|RF_Transient|RF_MarkAsNative, (EFunctionFlags)0x00080401, 0, 0, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UFunction_ABloque_RestaurarVida_Statics::Function_MetaDataParams), Z_Construct_UFunction_ABloque_RestaurarVida_Statics::Function_MetaDataParams) };
+UFunction* Z_Construct_UFunction_ABloque_RestaurarVida()
+{
+	static UFunction* ReturnFunction = nullptr;
+	if (!ReturnFunction)
+	{
+		UECodeGen_Private::ConstructUFunction(&ReturnFunction, Z_Construct_UFunction_ABloque_RestaurarVida_Statics::FuncParams);
+	}
+	return ReturnFunction;
+}
+DEFINE_FUNCTION(ABloque::execRestaurarVida)
+{
+	P_FINISH;
+	P_NATIVE_BEGIN;
+	P_THIS->RestaurarVida();
+	P_NATIVE_END;
+}
+// End Class ABloque Function RestaurarVida
+
 // Begin Class ABloque
 void ABloque::StaticRegisterNativesABloque()
 {
+	UClass* Class = ABloque::StaticClass();
+	static const FNameNativePtrPair Funcs[] = {
+		{ "HacerDanio", &ABloque::execHacerDanio },
+		{ "RestaurarVida", &ABloque::execRestaurarVida },
+	};
+	FNativeFunctionRegistrar::RegisterFunctions(Class, Funcs, UE_ARRAY_COUNT(Funcs));
 }
 IMPLEMENT_CLASS_NO_AUTO_REGISTRATION(ABloque);
 UClass* Z_Construct_UClass_ABloque_NoRegister()
@@ -133,11 +199,21 @@ struct Z_Construct_UClass_ABloque_Statics
 		{ "EditInline", "true" },
 		{ "ModuleRelativePath", "Bloque.h" },
 	};
+	static constexpr UECodeGen_Private::FMetaDataPairParam NewProp_GuardadoCuidador_MetaData[] = {
+		{ "ModuleRelativePath", "Bloque.h" },
+	};
 #endif // WITH_METADATA
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_MeshBloque;
 	static const UECodeGen_Private::FObjectPropertyParams NewProp_Particulas;
+	static const UECodeGen_Private::FObjectPropertyParams NewProp_GuardadoCuidador;
 	static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 	static UObject* (*const DependentSingletons[])();
+	static constexpr FClassFunctionLinkInfo FuncInfo[] = {
+		{ &Z_Construct_UFunction_ABloque_HacerDanio, "HacerDanio" }, // 4137374327
+		{ &Z_Construct_UFunction_ABloque_RestaurarVida, "RestaurarVida" }, // 1628118025
+	};
+	static_assert(UE_ARRAY_COUNT(FuncInfo) < 2048);
+	static const UECodeGen_Private::FImplementedInterfaceParams InterfaceParams[];
 	static constexpr FCppClassTypeInfoStatic StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ABloque>::IsAbstract,
 	};
@@ -145,9 +221,11 @@ struct Z_Construct_UClass_ABloque_Statics
 };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloque_Statics::NewProp_MeshBloque = { "MeshBloque", nullptr, (EPropertyFlags)0x0020080000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloque, MeshBloque), Z_Construct_UClass_UStaticMeshComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_MeshBloque_MetaData), NewProp_MeshBloque_MetaData) };
 const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloque_Statics::NewProp_Particulas = { "Particulas", nullptr, (EPropertyFlags)0x0020080000080008, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloque, Particulas), Z_Construct_UClass_UParticleSystemComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_Particulas_MetaData), NewProp_Particulas_MetaData) };
+const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ABloque_Statics::NewProp_GuardadoCuidador = { "GuardadoCuidador", nullptr, (EPropertyFlags)0x0020080000000000, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ABloque, GuardadoCuidador), Z_Construct_UClass_ACuidador_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(NewProp_GuardadoCuidador_MetaData), NewProp_GuardadoCuidador_MetaData) };
 const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ABloque_Statics::PropPointers[] = {
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloque_Statics::NewProp_MeshBloque,
 	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloque_Statics::NewProp_Particulas,
+	(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ABloque_Statics::NewProp_GuardadoCuidador,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::PropPointers) < 2048);
 UObject* (*const Z_Construct_UClass_ABloque_Statics::DependentSingletons[])() = {
@@ -155,18 +233,21 @@ UObject* (*const Z_Construct_UClass_ABloque_Statics::DependentSingletons[])() = 
 	(UObject* (*)())Z_Construct_UPackage__Script_BomberMan_12025,
 };
 static_assert(UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::DependentSingletons) < 16);
+const UECodeGen_Private::FImplementedInterfaceParams Z_Construct_UClass_ABloque_Statics::InterfaceParams[] = {
+	{ Z_Construct_UClass_UIOriginandor_NoRegister, (int32)VTABLE_OFFSET(ABloque, IIOriginandor), false },  // 2162416020
+};
 const UECodeGen_Private::FClassParams Z_Construct_UClass_ABloque_Statics::ClassParams = {
 	&ABloque::StaticClass,
 	"Engine",
 	&StaticCppClassTypeInfo,
 	DependentSingletons,
-	nullptr,
+	FuncInfo,
 	Z_Construct_UClass_ABloque_Statics::PropPointers,
-	nullptr,
+	InterfaceParams,
 	UE_ARRAY_COUNT(DependentSingletons),
-	0,
+	UE_ARRAY_COUNT(FuncInfo),
 	UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::PropPointers),
-	0,
+	UE_ARRAY_COUNT(InterfaceParams),
 	0x009000A4u,
 	METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ABloque_Statics::Class_MetaDataParams), Z_Construct_UClass_ABloque_Statics::Class_MetaDataParams)
 };
@@ -193,10 +274,10 @@ struct Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h
 		{ EBloqueTipo_StaticEnum, TEXT("EBloqueTipo"), &Z_Registration_Info_UEnum_EBloqueTipo, CONSTRUCT_RELOAD_VERSION_INFO(FEnumReloadVersionInfo, 2260843510U) },
 	};
 	static constexpr FClassRegisterCompiledInInfo ClassInfo[] = {
-		{ Z_Construct_UClass_ABloque, ABloque::StaticClass, TEXT("ABloque"), &Z_Registration_Info_UClass_ABloque, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloque), 1565274856U) },
+		{ Z_Construct_UClass_ABloque, ABloque::StaticClass, TEXT("ABloque"), &Z_Registration_Info_UClass_ABloque, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ABloque), 2580853571U) },
 	};
 };
-static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_672629485(TEXT("/Script/BomberMan_12025"),
+static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_1710698798(TEXT("/Script/BomberMan_12025"),
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::ClassInfo),
 	nullptr, 0,
 	Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::EnumInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_BomberMan_12025_Source_BomberMan_12025_Bloque_h_Statics::EnumInfo));

@@ -354,6 +354,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\BomberMan_12025GameMode.h" />
+    <ClCompile Include="..\..\Source\BomberMan_12025\Cuidador.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\Cuidador.h" />
     <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -398,14 +402,26 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IComponente.h" />
+    <ClCompile Include="..\..\Source\BomberMan_12025\IMemento.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IMemento.h" />
     <ClCompile Include="..\..\Source\BomberMan_12025\IMplementacion.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IMplementacion.h" />
+    <ClCompile Include="..\..\Source\BomberMan_12025\IOriginandor.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IOriginandor.h" />
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IPrototypeBloque.h" />
+    <ClCompile Include="..\..\Source\BomberMan_12025\MementoConcreto.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\MementoConcreto.h" />
     <ClCompile Include="..\..\Source\BomberMan_12025\Moneda.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

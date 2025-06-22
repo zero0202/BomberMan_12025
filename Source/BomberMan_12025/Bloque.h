@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "IOriginandor.h"
 #include "Bloque.generated.h"
 
 // Enumeracion definida 
@@ -22,11 +23,11 @@ enum class EBloqueTipo : uint8
 	Pegajoso   UMETA(DisplayName = "Pegajoso")
 };
 UCLASS()
-class BOMBERMAN_12025_API ABloque : public AActor
+class BOMBERMAN_12025_API ABloque : public AActor, public IIOriginandor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	ABloque();
 
@@ -34,12 +35,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 protected:
 
-	
+
 	//malla del bloque
 	UPROPERTY()
 	UStaticMeshComponent* MeshBloque;
@@ -52,7 +53,7 @@ public:
 	//Tipo de bloque
 	EBloqueTipo TipoBloque;
 	bool bDestruible = true;
-	bool MGrupal = true; 
+	bool MGrupal = true;
 	int IDBloque;
 	static int ContadorIDs;
 	virtual void AjustarTamano(FVector NuevoTamano);
@@ -64,8 +65,24 @@ public:
 	FORCEINLINE EBloqueTipo GetTipoBloque();
 	FORCEINLINE int GetID();
 
+protected:
+	int Vidas;
+	FTimerHandle TimerHandle_HacerDanio;
+	FTimerHandle TimerHandle_Restaurar;
+
+	UPROPERTY()
+	class ACuidador* GuardadoCuidador;
+
+	UFUNCTION()
+	void HacerDanio();
+
+	UFUNCTION()
+	void RestaurarVida();
 public:
 	//virtual ABloque* Clonar(UWorld* Mundo, const FVector& Posicion, const FRotator& Rotacion) override;
 
 
+	void GuardarEstado(IIMemento* SalidaMemento) override;
+	void EstablecerVidas(int _vidas);
+	int ObtenerVidas();
 };

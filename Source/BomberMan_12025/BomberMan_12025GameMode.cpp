@@ -32,6 +32,8 @@
 #include "MovimientoCircular.h"
 #include "MonedaOro.h"
 #include "MonedaPlatino.h"
+#include "Cuidador.h"
+#include "IMemento.h"
 
 
 ABomberMan_12025GameMode::ABomberMan_12025GameMode()
@@ -55,6 +57,7 @@ void ABomberMan_12025GameMode::BeginPlay()
 	SpawnEnemigos();
     DecorarEnemigos();
     Monedas();
+   
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
     //GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
@@ -474,7 +477,7 @@ void ABomberMan_12025GameMode::DecorarEnemigos()
     }
     */
 }
-
+/*
 void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
 {
     TArray<FVector> PosicionesValidas;
@@ -546,6 +549,7 @@ void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
     }
 
 }
+*/
 //bridge
 void ABomberMan_12025GameMode::Monedas()
 {
@@ -559,3 +563,48 @@ void ABomberMan_12025GameMode::Monedas()
     //Oro->MostrarDestruccion();
 
 }
+/*
+void ABomberMan_12025GameMode::RestaurarBloque()
+{
+    if (!BloqueControlado)
+    {
+        BloqueControlado = GetWorld()->SpawnActor<ABloque>(ABloque::StaticClass());
+    }
+
+    if (!Cuidador)
+    {
+        Cuidador = GetWorld()->SpawnActor<ACuidador>(ACuidador::StaticClass());
+    }
+
+    int Vidas = BloqueControlado->ObtenerVidas();
+    GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, FString::Printf(TEXT("RestaurarBloque - Vidas: %d"), Vidas));
+
+}
+
+void ABomberMan_12025GameMode::GuardarJuego()
+{
+    if (BloqueControlado && Cuidador)
+    {
+        BloqueControlado->EstablecerVidas(7);
+        Cuidador->Guardar(BloqueControlado);
+
+        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Purple, TEXT("Juego Guardado"));
+
+        int Vidas = BloqueControlado->ObtenerVidas();
+        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, FString::Printf(TEXT("Vidas después de guardar: %d"), Vidas));
+    }
+}
+
+void ABomberMan_12025GameMode::CargarJuego()
+{
+    if (BloqueControlado && Cuidador)
+    {
+        Cuidador->Cargar(BloqueControlado);
+
+        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Juego Cargado"));
+
+        int Vidas = BloqueControlado->ObtenerVidas();
+        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("Vidas después de cargar: %d"), Vidas));
+    }
+}
+*/

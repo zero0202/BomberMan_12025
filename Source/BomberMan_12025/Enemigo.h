@@ -30,7 +30,7 @@ public:
 
 protected:
 
-
+	bool bDestruible = true;
 	float Altura;
 	float Danio;
 	float VelocidadMovimineto;

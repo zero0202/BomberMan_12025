@@ -141,6 +141,12 @@
     <ClInclude Include="..\..\Source\BomberMan_12025\BomberMan_12025GameMode.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\Cuidador.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\Cuidador.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\DecoradorEnemigo.cpp">
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
@@ -207,16 +213,34 @@
     <ClInclude Include="..\..\Source\BomberMan_12025\IComponente.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\IMemento.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IMemento.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\IMplementacion.cpp">
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IMplementacion.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\IOriginandor.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IOriginandor.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IPrototypeBloque.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\MementoConcreto.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\MementoConcreto.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\Moneda.cpp">

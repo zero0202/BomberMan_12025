@@ -26,7 +26,8 @@ public:
 
 protected:
 	IIComponente* DecorarEnemigo;
+
 public:
 	void Inicializa(IIComponente* EnemigoDecorado);
-	virtual void ModificarVelocidad(float Vel) override;
+	void ModificarVelocidad(float Vel) override;
 };

@@ -102,6 +102,24 @@
     <ClInclude Include="..\..\Source\BomberMan_12025\BloquePegajoso.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\Bomba.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\Bomba.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\BombaBlanco.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\BombaBlanco.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\BombaNegro.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\BombaNegro.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <None Include="..\..\Source\BomberMan_12025\BomberMan_12025.Build.cs">
       <Filter>Source\BomberMan_12025</Filter>
     </None>
@@ -189,10 +207,40 @@
     <ClInclude Include="..\..\Source\BomberMan_12025\IComponente.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\IMplementacion.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\IMplementacion.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\BomberMan_12025\IPrototypeBloque.cpp">
       <Filter>Source\BomberMan_12025</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\BomberMan_12025\IPrototypeBloque.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\Moneda.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\Moneda.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\MonedaOro.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\MonedaOro.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\MonedaPlatino.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\MonedaPlatino.h">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\BomberMan_12025\MovimientoCircular.cpp">
+      <Filter>Source\BomberMan_12025</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\BomberMan_12025\MovimientoCircular.h">
       <Filter>Source\BomberMan_12025</Filter>
     </ClInclude>
   </ItemGroup>

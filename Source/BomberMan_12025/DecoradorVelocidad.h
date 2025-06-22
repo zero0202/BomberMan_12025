@@ -24,6 +24,7 @@ protected:
 
 private:
 	FTimerHandle TiempoDecorado;
+	float VelocidadOriginal;
 	float NuevaVelocidad;
 	float DuracionBuff;
 
@@ -33,8 +34,7 @@ public:
 
 
 	void InicializarVelocidad(IIComponente* EnemigoDecorado, float Velocidad, float Duracion);
-	virtual void ModificarVelocidad(float Vel) override;
-
+	void ModificarVelocidad(float vel) override;
 private:
 	void ResetVelocidad();
 };

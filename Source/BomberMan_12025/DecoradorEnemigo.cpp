@@ -10,8 +10,8 @@
 ADecoradorEnemigo::ADecoradorEnemigo()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-
+	PrimaryActorTick.bCanEverTick = false;
+	DecorarEnemigo = nullptr;
 }
 
 // Called when the game starts or when spawned
@@ -32,14 +32,6 @@ void ADecoradorEnemigo::Inicializa(IIComponente* EnemigoDecorado)
 {
 	DecorarEnemigo = EnemigoDecorado;
 
-	if (DecorarEnemigo)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Enemigo decorado"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("Error al inicializar DecorarEnemigo."));
-	}
 }
 
 void ADecoradorEnemigo::ModificarVelocidad(float Vel)
@@ -48,11 +40,6 @@ void ADecoradorEnemigo::ModificarVelocidad(float Vel)
 	if (DecorarEnemigo)
 	{
 		DecorarEnemigo->ModificarVelocidad(Vel);
-		UE_LOG(LogTemp, Warning, TEXT("Velocidad modificada "), Vel);
-	}
-	else
-	{
-		UE_LOG(LogTemp, Error, TEXT("DecorarEnemigo no inicializado."));
 	}
 }
 

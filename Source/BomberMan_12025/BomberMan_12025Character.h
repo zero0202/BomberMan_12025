@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Logging/LogMacros.h"
+#include "InputActionValue.h"
 #include "BomberMan_12025Character.generated.h"
 
 class USpringArmComponent;
@@ -12,6 +13,7 @@ class UCameraComponent;
 class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
+class ABomba;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -69,5 +71,25 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	/** Returns FollowCamera subobject **/
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
+
+	// de la bomba
+public:
+	void ColocarBombaBlanca();
+	void ColocarBombaNegra();
+
+	UInputMappingContext* BombaMappingContext;
+	UPROPERTY()
+	UInputAction* ColocarBombaBlancas;
+	UInputAction* ColocarBombaNegras;
+
+	UPROPERTY(EditAnywhere, Category = "Bombas")
+	TSubclassOf<ABomba> ClaseBombaBlanca;
+	TSubclassOf<ABomba> ClaseBombaNegra;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float Health; // Salud del personaje
+
+	UFUNCTION()
+	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
+
 };
 

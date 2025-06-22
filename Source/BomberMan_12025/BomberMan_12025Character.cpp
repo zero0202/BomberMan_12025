@@ -10,6 +10,12 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "InputMappingContext.h"// para mapear el boton de la bomba
+#include "InputAction.h"// para mapear el boton de la bomba
+#include "Bomba.h"//bomba
+#include "BombaBlanco.h"//bomba blanca
+#include "BombaNegro.h"//bomba negra
+
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -18,6 +24,25 @@ DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
 ABomberMan_12025Character::ABomberMan_12025Character()
 {
+	// Crear InputAction para Bomba Blanca
+	ColocarBombaBlancas = NewObject<UInputAction>(this, TEXT("ColocarBombaBlanca"));
+	if (ColocarBombaBlancas)
+	{
+		ColocarBombaBlancas->ValueType = EInputActionValueType::Boolean;
+	}
+
+	// Crear InputAction para Bomba Negra
+	ColocarBombaNegras = NewObject<UInputAction>(this, TEXT("ColocarBombaNegra"));
+	if (ColocarBombaNegras)
+	{
+		ColocarBombaNegras->ValueType = EInputActionValueType::Boolean;
+	}
+
+	// Clases por defecto (si no usas Blueprint)
+	ClaseBombaBlanca = ABombaBlanco::StaticClass();
+	ClaseBombaNegra = ABombaNegro::StaticClass();
+
+
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
 		
@@ -32,7 +57,7 @@ ABomberMan_12025Character::ABomberMan_12025Character()
 
 	// Note: For faster iteration times these variables, and many more, can be tweaked in the Character Blueprint
 	// instead of recompiling to adjust them
-	GetCharacterMovement()->JumpZVelocity = 700.f;
+	GetCharacterMovement()->JumpZVelocity = 1000.f;
 	GetCharacterMovement()->AirControl = 0.35f;
 	GetCharacterMovement()->MaxWalkSpeed = 500.f;
 	GetCharacterMovement()->MinAnalogWalkSpeed = 20.f;
@@ -58,6 +83,66 @@ void ABomberMan_12025Character::BeginPlay()
 {
 	// Call the base class  
 	Super::BeginPlay();
+
+	if (APlayerController* PC = Cast<APlayerController>(GetController()))
+	{
+		if (ULocalPlayer* LocalPlayer = PC->GetLocalPlayer())
+		{
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem = LocalPlayer->GetSubsystem<UEnhancedInputLocalPlayerSubsystem>())
+			{
+				// Guardar el contexto para evitar GC
+				BombaMappingContext = NewObject<UInputMappingContext>(this);
+
+				BombaMappingContext->MapKey(ColocarBombaBlancas, EKeys::E);
+				BombaMappingContext->MapKey(ColocarBombaNegras, EKeys::T);
+
+				// Agregar contexto con prioridad más alta (ejemplo 1)
+				Subsystem->AddMappingContext(BombaMappingContext, 10);
+			}
+		}
+	}
+
+}
+
+void ABomberMan_12025Character::ColocarBombaBlanca()
+{
+	if (ClaseBombaBlanca)
+	{
+		FVector Pos = GetActorLocation();
+		Pos.Z = 0.0f;
+		GetWorld()->SpawnActor<ABomba>(ClaseBombaBlanca, Pos, FRotator::ZeroRotator);
+	}
+}
+
+void ABomberMan_12025Character::ColocarBombaNegra()
+{
+	if (ClaseBombaNegra)
+	{
+		FVector Pos = GetActorLocation();
+		Pos.Z = 0.0f;
+		ABomba* BombaNegra = GetWorld()->SpawnActor<ABomba>(ClaseBombaNegra, Pos, FRotator::ZeroRotator);
+		
+	}
+}
+
+float ABomberMan_12025Character::TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser)
+{
+	// Reducir salud del personaje
+	Health -= DamageAmount;
+
+	// Si la salud llega a 0 o menos, el personaje "muere"
+	if (Health <= 0)
+	{
+		// Realiza acciones adicionales como muerte o reinicio de juego
+		// Mostrar mensaje en pantalla
+		if (GEngine)
+		{
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("¡Has muerto!"));
+		}
+	}
+
+	// Retornar el daño aplicado
+	return DamageAmount;
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -86,6 +171,11 @@ void ABomberMan_12025Character::SetupPlayerInputComponent(UInputComponent* Playe
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_12025Character::Look);
+		// Colocar Bomba Blanca
+		EnhancedInputComponent->BindAction(ColocarBombaBlancas, ETriggerEvent::Started, this, &ABomberMan_12025Character::ColocarBombaBlanca);
+
+		// Colocar Bomba Negra
+		EnhancedInputComponent->BindAction(ColocarBombaNegras, ETriggerEvent::Started, this, &ABomberMan_12025Character::ColocarBombaNegra);
 	}
 	else
 	{

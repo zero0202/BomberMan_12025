@@ -22,9 +22,7 @@ AEnemigo::AEnemigo()
 	ParticleSystem = CreateDefaultSubobject<UParticleSystemComponent>(TEXT("ParticleSystem"));
 	ParticleSystem->SetupAttachment(RootComponent);
 
-
-
-
+	VelocidadMovimineto = 150.0f;
 }
 
 void AEnemigo::BeginPlay()
@@ -73,5 +71,10 @@ void AEnemigo::MoverEnemigo(float DeltaTime)
 void AEnemigo::ModificarVelocidad(float Vel)
 {
 	VelocidadMovimineto = Vel;
-	UE_LOG(LogTemp, Warning, TEXT("Nueva velocidad enemigo: %f"), VelocidadMovimineto);
+
+}
+
+float AEnemigo::GetVelocidadActual()
+{
+	return VelocidadMovimineto;;
 }

@@ -57,10 +57,19 @@ public:
 	TArray<AEnemigo*> EnemigosA;
 	TArray<FVector> PuntosPatrullaLibres;
 	void SpawnEnemigos();
+	void DecorarEnemigos();
+	FTimerHandle TimerD;
 
 	void PosicionarJugadorAleatoriamente();
 	FTimerHandle TimerPosicion;
 
+	//Monedas
+public:
+
+	class AMoneda* Moneda;
+	class AMonedaOro* Oro;
+	class AMonedaPlatino* Platino;
+	void Monedas();
 };
 
 

@@ -55,6 +55,7 @@ public:
 	virtual void MoverEnemigo(float DeltaTime);
 	
 
-
-	virtual void ModificarVelocidad(float Vel) override;
+	//decorator
+	void ModificarVelocidad(float Vel) override;
+	float GetVelocidadActual();
 };

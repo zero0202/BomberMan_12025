@@ -1,4 +1,4 @@
-// Copyright Epic Games, Inc. All Rights Reserved.
+Ôªø// Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "BomberMan_12025GameMode.h"
 #include "BomberMan_12025Character.h"
@@ -28,6 +28,10 @@
 #include "FabricaBloqueCuadrados.h"
 #include "IComponente.h"
 #include "DecoradorVelocidad.h"
+#include "IMplementacion.h"
+#include "MovimientoCircular.h"
+#include "MonedaOro.h"
+#include "MonedaPlatino.h"
 
 
 ABomberMan_12025GameMode::ABomberMan_12025GameMode()
@@ -40,26 +44,22 @@ ABomberMan_12025GameMode::ABomberMan_12025GameMode()
 	}
 }
 void ABomberMan_12025GameMode::BeginPlay()
-{
+{ 
     Super::BeginPlay();
-
-    ADecoradorVelocidad* Decorador = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
-
-    if (Decorador)
-    {
-        Decorador->InicializarVelocidad(Cast<IIComponente>(this), 500.0f, 5.0f); // velocidad 1200, 5 seg
-    }
-
+ 
     FabricaBloquesMap();
     GenerarMapaDesdeCodigo();
     GenerarLaberinto();
     Prototipos();
     ClonarBloques(TFilas, TColumnas);
 	SpawnEnemigos();
+    DecorarEnemigos();
+    Monedas();
 
     //para posicionar aleatoriamente al jugador luego de generar el laberinto
     //GetWorld()->GetTimerManager().SetTimer(TimerPosicion, this, &ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente, 0.1f, false);
-
+    // Cada 5 seg aplica DecoradorVelocidad a un enemigo
+    GetWorld()->GetTimerManager().SetTimer(TimerD, this, &ABomberMan_12025GameMode::DecorarEnemigos, 3.0f, true);
 }
 void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
 {
@@ -156,7 +156,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         }
     }
 
-    // Entrada y salida opcionales (solo si est·n en la mitad derecha)
+    // Entrada y salida opcionales (solo si est√°n en la mitad derecha)
     MapaLaberinto[1][Columnas / 2] = 0; // Entrada a la mitad derecha
     MapaLaberinto[TFilas - 2][TColumnas - 2] = 0; // Salida cerca del borde derecho
 }
@@ -167,8 +167,8 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
     float Espaciado = 400.0f;
 
     //las filas y columnas se estan creando directamente se derivan automaticamente 
-    // El tamaÒo lo decide el contenido del array.
-    //puedo hacer un laberinto m·s grande o m·s pequeÒo solo cambiando el array, sin tocar nada m·s del cÛdigo
+    // El tama√±o lo decide el contenido del array.
+    //puedo hacer un laberinto m√°s grande o m√°s peque√±o solo cambiando el array, sin tocar nada m√°s del c√≥digo
 
     // Recorre cada fila del mapa del laberinto (eje Y)
     for (int Y = 0; Y < MapaLaberinto.Num(); ++Y)
@@ -176,10 +176,10 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
         // Recorre cada columna dentro de la fila actual (eje X)
         for (int X = 0; X < MapaLaberinto[Y].Num(); ++X)
         {
-            // Obtiene el tipo de bloque que hay en la posiciÛn (Y, X)
+            // Obtiene el tipo de bloque que hay en la posici√≥n (Y, X)
             int Tipo = MapaLaberinto[Y][X];
 
-            // Si el tipo es 0, se considera espacio vacÌo y no se genera nada
+            // Si el tipo es 0, se considera espacio vac√≠o y no se genera nada
             if (Tipo == 0) {
 
                 FVector PosicionLibre = FVector(X * Espaciado, Y * Espaciado, 0.0f); // ajusta altura si deseas
@@ -187,7 +187,7 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
                 continue;
 
             }
-            // Traducir entero a EBloqueTipo (ajusta seg˙n tu enumeraciÛn real)
+            // Traducir entero a EBloqueTipo (ajusta seg√∫n tu enumeraci√≥n real)
             EBloqueTipo TipoBloque;
             switch (Tipo)
             {
@@ -252,7 +252,7 @@ void ABomberMan_12025GameMode::MoverTodos(EBloqueTipo Tipo)
 // Inicializa el mapa de prototipos con instancias reales de bloques en el mundo
 void ABomberMan_12025GameMode::Prototipos()
 {
-    // Lambda local para evitar repetir cÛdigo al registrar cada tipo
+    // Lambda local para evitar repetir c√≥digo al registrar cada tipo
     auto AgregarPrototipo = [&](int TipoID, TSubclassOf<AActor> ClaseBloque)
         {
             TArray<AActor*> Encontrados;
@@ -284,7 +284,7 @@ void ABomberMan_12025GameMode::Prototipos()
 void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 {
     
-    float TamCelda = 400.f; // TamaÒo entre bloques en el mapa
+    float TamCelda = 400.f; // Tama√±o entre bloques en el mapa
     int32 ColumnaCentro = TColumnas / 2; // Punto de reflejo horizontal
 
     for (int32 Y = 0; Y < InTFilas; Y++)
@@ -292,19 +292,19 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
         for (int32 X = ColumnaCentro; X < InTColumnas; X++)
         {
             int32 Tipo = MapaLaberinto[Y][X];
-            if (Tipo <= 0) continue; // Ignorar celdas vacÌas o sin tipo
+            if (Tipo <= 0) continue; // Ignorar celdas vac√≠as o sin tipo
 
-            // Calcula la posiciÛn del clon reflejado en la otra mitad del mapa
+            // Calcula la posici√≥n del clon reflejado en la otra mitad del mapa
             int32 XReflejado = ColumnaCentro - (X - ColumnaCentro);
             FVector PosicionClonada(XReflejado * TamCelda, Y * TamCelda, 0.0f);
 
             // Busca el prototipo correspondiente al tipo en el mapa
             if (AActor* Prototipo = MapaPrototipos.FindRef(Tipo))
             {
-                // Se asegura que el prototipo implemente la interfaz de clonaciÛn
+                // Se asegura que el prototipo implemente la interfaz de clonaci√≥n
                 if (IIPrototypeBloque* Clonador = Cast<IIPrototypeBloque>(Prototipo))
                 {
-                    // Se genera el clon usando el mÈtodo virtual Clonar
+                    // Se genera el clon usando el m√©todo virtual Clonar
                     AActor* Clon = Clonador->Clonar(GetWorld(), PosicionClonada);
 
                     if (Clon)
@@ -314,7 +314,7 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
                         // Se actualiza el mapa para registrar el nuevo bloque clonado
                         MapaLaberinto[Y][XReflejado] = Tipo;
                         
-                        // (Opcional) Muestra mensaje en consola para verificar clonaciÛn
+                        // (Opcional) Muestra mensaje en consola para verificar clonaci√≥n
                         UE_LOG(LogTemp, Warning, TEXT("Clonado tipo %d en (%d, %d)"), Tipo, XReflejado, Y);
 
                     }
@@ -376,32 +376,103 @@ void ABomberMan_12025GameMode::FabricaBloquesMap()
 
 void ABomberMan_12025GameMode::SpawnEnemigos()
 {
-	if (PuntosPatrullaLibres.Num() == 0)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("No hay puntos de patrulla libres para spawn de enemigos."));
-		return;
-	}
-	// Limpiar enemigos existentes
-	for (AEnemigo* Enemigo : EnemigosA)
-	{
-		if (Enemigo)
-		{
-			Enemigo->Destroy();
-		}
-	}
-	EnemigosA.Empty();
-	// Crear enemigos
-	for (int32 i = 0; i < 5; ++i) // Cambia el n˙mero seg˙n tus necesidades
-	{
-		int32 Index = FMath::RandRange(0, PuntosPatrullaLibres.Num() - 1);
-		FVector SpawnLocation = PuntosPatrullaLibres[Index];
-		AEnemigo* NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoMedusa>(AEnemigoMedusa::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
-		if (NuevoEnemigo)
-		{
-			EnemigosA.Add(NuevoEnemigo);
-			UE_LOG(LogTemp, Warning, TEXT("Enemigo Medusa spawn en: %s"), *SpawnLocation.ToString());
-		}
-	}
+    if (PuntosPatrullaLibres.Num() == 0)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No hay puntos de patrulla libres para spawn de enemigos."));
+        return;
+    }
+
+    // Limpiar enemigos existentes
+    for (AEnemigo* Enemigo : EnemigosA)
+    {
+        if (Enemigo)
+        {
+            Enemigo->Destroy();
+        }
+    }
+    EnemigosA.Empty();
+
+    int32 TotalEnemigos = 4; // Spawneamos 4 enemigos distintos
+
+    for (int32 i = 0; i < TotalEnemigos; ++i)
+    {
+        int32 Index = FMath::RandRange(0, PuntosPatrullaLibres.Num() - 1);
+        FVector SpawnLocation = PuntosPatrullaLibres[Index];
+
+        AEnemigo* NuevoEnemigo = nullptr;
+
+        switch (i)
+        {
+        case 0:
+            NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoMedusa>(AEnemigoMedusa::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+            break;
+        case 1:
+            NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoSaltarin>(AEnemigoSaltarin::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+            break;
+        case 2:
+            NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoTortuga>(AEnemigoTortuga::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+            break;
+        case 3:
+            NuevoEnemigo = GetWorld()->SpawnActor<AEnemigoGolen>(AEnemigoGolen::StaticClass(), SpawnLocation, FRotator::ZeroRotator);
+            break;
+        default:
+            break;
+        }
+
+        if (NuevoEnemigo)
+        {
+            EnemigosA.Add(NuevoEnemigo);
+            UE_LOG(LogTemp, Warning, TEXT("Enemigo %d spawn en: %s"), i, *SpawnLocation.ToString());
+        }
+    }
+}
+
+void ABomberMan_12025GameMode::DecorarEnemigos()
+{
+    if (EnemigosA.Num() == 0) return;
+
+    // Elegir enemigo aleatorio
+    int32 Index = FMath::RandRange(0, EnemigosA.Num() - 1);
+    AEnemigo* Enemigo = EnemigosA[Index];
+    if (!Enemigo) return;
+
+    float VelActual = Enemigo->GetVelocidadActual();
+    // Spawnear un DecoradorVelocidad
+    ADecoradorVelocidad* Decorador = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
+    if (Decorador)
+    {
+        // Enviar velocidad actual
+        Decorador->InicializarVelocidad(Enemigo, VelActual, 10.0f); // Por ejemplo, 3 seg
+    }
+    /*
+	ADecoradorEnemigo* EnemigoConcreto = GetWorld()->SpawnActor<ADecoradorEnemigo>(ADecoradorEnemigo::StaticClass());
+	ADecoradorVelocidad* EnemigoVel = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
+    
+    
+    if (EnemigosA.Num() == 0)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("No hay enemigos para decorar."));
+        return;
+    }
+
+    // Seleccionar un enemigo aleatorio
+    int32 Index = FMath::RandRange(0, EnemigosA.Num() - 1);
+    AEnemigo* EnemigoSeleccionado = EnemigosA[Index];
+
+    if (!EnemigoSeleccionado) return;
+
+    UE_LOG(LogTemp, Warning, TEXT("Decorando enemigo %s con Velocidad!"), *EnemigoSeleccionado->GetName());
+
+    // Crear Decorador
+    ADecoradorVelocidad* Decorador = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
+    if (Decorador)
+    {
+        // Aplica velocidad actual * 1.5, durante 5 segundos
+        float VelocidadActual = EnemigoSeleccionado->GetVelocidadActual();
+
+        Decorador->InicializarVelocidad(EnemigoSeleccionado, VelocidadActual * 1.5f, 5.0f);
+    }
+    */
 }
 
 void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
@@ -416,7 +487,7 @@ void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
     {
         for (int X = 1; X < NumColumnas - 1; ++X)
         {
-            // Buscamos celdas vacÌas adyacentes a bloques de madera
+            // Buscamos celdas vac√≠as adyacentes a bloques de madera
             if (MapaLaberinto[Y][X] == 0)
             {
                 // Revisar las 4 direcciones alrededor
@@ -426,7 +497,7 @@ void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
 
                 if (CercaDeMadera)
                 {
-                    // Calcular la distancia al borde m·s cercano
+                    // Calcular la distancia al borde m√°s cercano
                     int DistIzq = X;
                     int DistDer = NumColumnas - 1 - X;
                     int DistArriba = Y;
@@ -437,7 +508,7 @@ void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
 
                     if (DistanciaABorde < DistanciaMinima)
                     {
-                        PosicionesValidas.Empty(); // Limpiar para nueva distancia mÌnima
+                        PosicionesValidas.Empty(); // Limpiar para nueva distancia m√≠nima
                         DistanciaMinima = DistanciaABorde;
                     }
 
@@ -471,7 +542,20 @@ void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
     }
     else
     {
-        UE_LOG(LogTemp, Error, TEXT("No se encontrÛ ninguna posiciÛn v·lida para el jugador."));
+        UE_LOG(LogTemp, Error, TEXT("No se encontr√≥ ninguna posici√≥n v√°lida para el jugador."));
     }
+
+}
+//bridge
+void ABomberMan_12025GameMode::Monedas()
+{
+   
+    Oro = GetWorld()->SpawnActor<AMonedaOro>(AMonedaOro::StaticClass(), FVector(2800, 420, 40), FRotator::ZeroRotator);
+	Platino = GetWorld()->SpawnActor<AMonedaPlatino>(AMonedaPlatino::StaticClass(), FVector(2000, 3630, 40), FRotator::ZeroRotator);
+	//Moneda = GetWorld()->SpawnActor<AMoneda>(AMoneda::StaticClass());
+
+    AMovimientoCircular* NuevoMovimiento1 = GetWorld()->SpawnActor<AMovimientoCircular>(AMovimientoCircular::StaticClass());
+    Oro->SetMovimiento(NuevoMovimiento1);
+    //Oro->MostrarDestruccion();
 
 }

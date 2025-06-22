@@ -8,7 +8,7 @@
 ADecoradorVelocidad::ADecoradorVelocidad()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	PrimaryActorTick.bCanEverTick = false;
 
 }
 
@@ -29,9 +29,9 @@ void ADecoradorVelocidad::InicializarVelocidad(IIComponente* EnemigoDecorado, fl
 {
 	Inicializa(EnemigoDecorado); 
 
-	NuevaVelocidad = Velocidad;
+	VelocidadOriginal = Velocidad;
 	DuracionBuff = Duracion;
-
+	NuevaVelocidad = VelocidadOriginal * 2.5f;
 	UE_LOG(LogTemp, Warning, TEXT("DecoradorVelocidad activado: Vel=%f, Duracion=%f"), NuevaVelocidad, DuracionBuff);
 
 	// Aplicar velocidad nueva
@@ -42,17 +42,19 @@ void ADecoradorVelocidad::InicializarVelocidad(IIComponente* EnemigoDecorado, fl
 
 }
 
-void ADecoradorVelocidad::ModificarVelocidad(float Vel)
+void ADecoradorVelocidad::ModificarVelocidad(float vel)
 {
-	Super::ModificarVelocidad(Vel);
+	if (DecorarEnemigo)
+	{
+		DecorarEnemigo->ModificarVelocidad(vel);
+	}
 }
 
 void ADecoradorVelocidad::ResetVelocidad()
 {
-	UE_LOG(LogTemp, Warning, TEXT("DecoradorVelocidad terminado. Restaurando velocidad normal."));
+	UE_LOG(LogTemp, Warning, TEXT("DecoradorVelocidad terminado. Restaurando velocidad normal."), VelocidadOriginal);
 
 	// Restaurar velocidad normal (por ejemplo 600)
-	ModificarVelocidad(600.0f);
-
+	ModificarVelocidad(VelocidadOriginal);
 	Destroy();
 }

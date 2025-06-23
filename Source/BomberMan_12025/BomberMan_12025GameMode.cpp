@@ -200,7 +200,7 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
             case 8: TipoBloque = EBloqueTipo::Hielo; break;
             case 9: TipoBloque = EBloqueTipo::Hongo; break;
             case 10: TipoBloque = EBloqueTipo::Lava; break;
-            default: continue;
+            default: continue; 
             }
 
             FVector Posicion = FVector(X * Espaciado, Y * Espaciado, 0.0f);

@@ -23,7 +23,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 private:
-	class AMementoConcreto* Memento;
+	class AMementoConcreto* Memento; 
 	class ABloque* Originador;
 
 public:

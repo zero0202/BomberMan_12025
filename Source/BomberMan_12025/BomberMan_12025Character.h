@@ -14,6 +14,9 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 class ABomba;
+class AEmisor;
+class ABombaNegraConcreta;
+class ABombaBlancaConcreta;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
@@ -66,6 +69,7 @@ protected:
 	// To add mapping context
 	virtual void BeginPlay();
 
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 public:
 	/** Returns CameraBoom subobject **/
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
@@ -76,6 +80,11 @@ public:
 public:
 	void ColocarBombaBlanca();
 	void ColocarBombaNegra();
+
+	// Patrón Command
+	AEmisor* EEmisor;
+	ABombaNegraConcreta* NegraCmd;
+	ABombaBlancaConcreta* BlancaCmd;
 
 	UInputMappingContext* BombaMappingContext;
 	UPROPERTY()
@@ -90,6 +99,7 @@ public:
 
 	UFUNCTION()
 	virtual float TakeDamage(float DamageAmount, FDamageEvent const& DamageEvent, AController* EventInstigator, AActor* DamageCauser) override;
-
+	void OnInputBombaNegra();
+	void OnInputBombaBlanca();
 };
 

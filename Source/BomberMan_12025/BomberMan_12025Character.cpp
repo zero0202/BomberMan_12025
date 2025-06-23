@@ -10,12 +10,14 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
-#include "InputMappingContext.h"// para mapear el boton de la bomba
-#include "InputAction.h"// para mapear el boton de la bomba
-#include "Bomba.h"//bomba
-#include "BombaBlanco.h"//bomba blanca
-#include "BombaNegro.h"//bomba negra
-
+#include "InputMappingContext.h"
+#include "InputAction.h"
+#include "Bomba.h"
+#include "BombaBlanco.h"
+#include "BombaNegro.h"
+#include "Emisor.h"
+#include "BombaNegraConcreta.h"
+#include "BombaBlancaConcreta.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -101,9 +103,34 @@ void ABomberMan_12025Character::BeginPlay()
 			}
 		}
 	}
+	// Inicializar el patron Command
+	EEmisor = GetWorld()->SpawnActor<AEmisor>(AEmisor::StaticClass());
+
+	NegraCmd = GetWorld()->SpawnActor<ABombaNegraConcreta>(ABombaNegraConcreta::StaticClass());
+	NegraCmd->SetReceptor(this);
+
+	BlancaCmd = GetWorld()->SpawnActor<ABombaBlancaConcreta>(ABombaBlancaConcreta::StaticClass());
+	BlancaCmd->SetReceptor(this);
 
 }
 
+void ABomberMan_12025Character::OnInputBombaNegra()
+{
+	if (EEmisor && NegraCmd)
+	{
+		EEmisor->SetCommand(NegraCmd);
+		EEmisor->EjecutarComando();
+	}
+}
+
+void ABomberMan_12025Character::OnInputBombaBlanca()
+{
+	if (EEmisor && NegraCmd)
+	{
+		EEmisor->SetCommand(BlancaCmd);
+		EEmisor->EjecutarComando();
+	}
+}
 void ABomberMan_12025Character::ColocarBombaBlanca()
 {
 	if (ClaseBombaBlanca)
@@ -118,10 +145,16 @@ void ABomberMan_12025Character::ColocarBombaNegra()
 {
 	if (ClaseBombaNegra)
 	{
-		FVector Pos = GetActorLocation();
-		Pos.Z = 0.0f;
-		ABomba* BombaNegra = GetWorld()->SpawnActor<ABomba>(ClaseBombaNegra, Pos, FRotator::ZeroRotator);
-		
+		for (int i = 0; i < 3; ++i)
+		{
+			FVector Pos = GetActorLocation();
+
+			// Separar un poco en X o Y, para que no se superpongan:
+			Pos.X += i * 100.0f;
+			Pos.Z += 1000.0f; // que caigan desde arriba
+
+			GetWorld()->SpawnActor<ABomba>(ClaseBombaBlanca, Pos, FRotator::ZeroRotator);
+		}
 	}
 }
 
@@ -144,6 +177,29 @@ float ABomberMan_12025Character::TakeDamage(float DamageAmount, FDamageEvent con
 	// Retornar el daño aplicado
 	return DamageAmount;
 }
+
+void ABomberMan_12025Character::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	if (NegraCmd)
+	{
+		NegraCmd->Destroy();
+		NegraCmd = nullptr;
+	}
+	if (BlancaCmd)
+	{
+		BlancaCmd->Destroy();
+		BlancaCmd = nullptr;
+	}
+
+	if (EEmisor)
+	{
+		EEmisor->Destroy();
+		EEmisor = nullptr;
+	}
+
+	Super::EndPlay(EndPlayReason);
+}
+
 
 //////////////////////////////////////////////////////////////////////////
 // Input
@@ -172,10 +228,10 @@ void ABomberMan_12025Character::SetupPlayerInputComponent(UInputComponent* Playe
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABomberMan_12025Character::Look);
 		// Colocar Bomba Blanca
-		EnhancedInputComponent->BindAction(ColocarBombaBlancas, ETriggerEvent::Started, this, &ABomberMan_12025Character::ColocarBombaBlanca);
+		EnhancedInputComponent->BindAction(ColocarBombaBlancas, ETriggerEvent::Started, this, &ABomberMan_12025Character::OnInputBombaBlanca);
 
 		// Colocar Bomba Negra
-		EnhancedInputComponent->BindAction(ColocarBombaNegras, ETriggerEvent::Started, this, &ABomberMan_12025Character::ColocarBombaNegra);
+		EnhancedInputComponent->BindAction(ColocarBombaNegras, ETriggerEvent::Started, this, &ABomberMan_12025Character::OnInputBombaNegra);
 	}
 	else
 	{

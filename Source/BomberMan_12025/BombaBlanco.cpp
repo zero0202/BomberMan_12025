@@ -27,6 +27,11 @@ ABombaBlanco::ABombaBlanco()
 	{
 		MeshBomba->SetMaterial(0, ObjetoBloqueAceroMaterial.Object);
 	}
+
+	// Activar fisica para que caiga
+	MeshBomba->SetSimulatePhysics(true);
+	MeshBomba->SetEnableGravity(true);
+	MeshBomba->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 }
 void ABombaBlanco::BeginPlay()
 {

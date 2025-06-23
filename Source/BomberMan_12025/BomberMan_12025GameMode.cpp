@@ -154,7 +154,7 @@ void ABomberMan_12025GameMode::GenerarMapaDesdeCodigo()
         {
             if (MapaLaberinto[Y][X] == -1)
             {
-                MapaLaberinto[Y][X] = FMath::RandRange(2, 4); 
+                MapaLaberinto[Y][X] = FMath::RandRange(2, 5); 
             }
         }
     }
@@ -168,10 +168,6 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
 {
 
     float Espaciado = 400.0f;
-
-    //las filas y columnas se estan creando directamente se derivan automaticamente 
-    // El tamaño lo decide el contenido del array.
-    //puedo hacer un laberinto más grande o más pequeño solo cambiando el array, sin tocar nada más del código
 
     // Recorre cada fila del mapa del laberinto (eje Y)
     for (int Y = 0; Y < MapaLaberinto.Num(); ++Y)
@@ -198,12 +194,12 @@ void ABomberMan_12025GameMode::GenerarLaberinto()
             case 2: TipoBloque = EBloqueTipo::Ladrillo; break;
             case 3: TipoBloque = EBloqueTipo::Concreto; break;
             case 4: TipoBloque = EBloqueTipo::Madera; break;
-            case 5: TipoBloque = EBloqueTipo::Lava; break;
-            case 6: TipoBloque = EBloqueTipo::Arena; break;
-            case 7: TipoBloque = EBloqueTipo::Electrico; break;
-            case 8: TipoBloque = EBloqueTipo::Pegajoso; break;
-            case 9: TipoBloque = EBloqueTipo::Hielo; break;
-            case 10: TipoBloque = EBloqueTipo::Hongo; break;
+            case 5: TipoBloque = EBloqueTipo::Arena; break;
+            case 6: TipoBloque = EBloqueTipo::Electrico; break;
+            case 7: TipoBloque = EBloqueTipo::Pegajoso; break; 
+            case 8: TipoBloque = EBloqueTipo::Hielo; break;
+            case 9: TipoBloque = EBloqueTipo::Hongo; break;
+            case 10: TipoBloque = EBloqueTipo::Lava; break;
             default: continue;
             }
 
@@ -285,8 +281,7 @@ void ABomberMan_12025GameMode::Prototipos()
 }
 
 void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
-{
-    
+{    
     float TamCelda = 400.f; // Tamaño entre bloques en el mapa
     int32 ColumnaCentro = TColumnas / 2; // Punto de reflejo horizontal
 
@@ -312,12 +307,9 @@ void ABomberMan_12025GameMode::ClonarBloques(int32 InTFilas, int32 InTColumnas)
 
                     if (Clon)
                     {
-
-                        
                         // Se actualiza el mapa para registrar el nuevo bloque clonado
                         MapaLaberinto[Y][XReflejado] = Tipo;
                         
-                        // (Opcional) Muestra mensaje en consola para verificar clonación
                         UE_LOG(LogTemp, Warning, TEXT("Clonado tipo %d en (%d, %d)"), Tipo, XReflejado, Y);
 
                     }
@@ -447,35 +439,7 @@ void ABomberMan_12025GameMode::DecorarEnemigos()
         // Enviar velocidad actual
         Decorador->InicializarVelocidad(Enemigo, VelActual, 10.0f); // Por ejemplo, 3 seg
     }
-    /*
-	ADecoradorEnemigo* EnemigoConcreto = GetWorld()->SpawnActor<ADecoradorEnemigo>(ADecoradorEnemigo::StaticClass());
-	ADecoradorVelocidad* EnemigoVel = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
-    
-    
-    if (EnemigosA.Num() == 0)
-    {
-        UE_LOG(LogTemp, Warning, TEXT("No hay enemigos para decorar."));
-        return;
-    }
-
-    // Seleccionar un enemigo aleatorio
-    int32 Index = FMath::RandRange(0, EnemigosA.Num() - 1);
-    AEnemigo* EnemigoSeleccionado = EnemigosA[Index];
-
-    if (!EnemigoSeleccionado) return;
-
-    UE_LOG(LogTemp, Warning, TEXT("Decorando enemigo %s con Velocidad!"), *EnemigoSeleccionado->GetName());
-
-    // Crear Decorador
-    ADecoradorVelocidad* Decorador = GetWorld()->SpawnActor<ADecoradorVelocidad>(ADecoradorVelocidad::StaticClass());
-    if (Decorador)
-    {
-        // Aplica velocidad actual * 1.5, durante 5 segundos
-        float VelocidadActual = EnemigoSeleccionado->GetVelocidadActual();
-
-        Decorador->InicializarVelocidad(EnemigoSeleccionado, VelocidadActual * 1.5f, 5.0f);
-    }
-    */
+   
 }
 /*
 void ABomberMan_12025GameMode::PosicionarJugadorAleatoriamente()
@@ -563,48 +527,3 @@ void ABomberMan_12025GameMode::Monedas()
     //Oro->MostrarDestruccion();
 
 }
-/*
-void ABomberMan_12025GameMode::RestaurarBloque()
-{
-    if (!BloqueControlado)
-    {
-        BloqueControlado = GetWorld()->SpawnActor<ABloque>(ABloque::StaticClass());
-    }
-
-    if (!Cuidador)
-    {
-        Cuidador = GetWorld()->SpawnActor<ACuidador>(ACuidador::StaticClass());
-    }
-
-    int Vidas = BloqueControlado->ObtenerVidas();
-    GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, FString::Printf(TEXT("RestaurarBloque - Vidas: %d"), Vidas));
-
-}
-
-void ABomberMan_12025GameMode::GuardarJuego()
-{
-    if (BloqueControlado && Cuidador)
-    {
-        BloqueControlado->EstablecerVidas(7);
-        Cuidador->Guardar(BloqueControlado);
-
-        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Purple, TEXT("Juego Guardado"));
-
-        int Vidas = BloqueControlado->ObtenerVidas();
-        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, FString::Printf(TEXT("Vidas después de guardar: %d"), Vidas));
-    }
-}
-
-void ABomberMan_12025GameMode::CargarJuego()
-{
-    if (BloqueControlado && Cuidador)
-    {
-        Cuidador->Cargar(BloqueControlado);
-
-        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Juego Cargado"));
-
-        int Vidas = BloqueControlado->ObtenerVidas();
-        GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, FString::Printf(TEXT("Vidas después de cargar: %d"), Vidas));
-    }
-}
-*/

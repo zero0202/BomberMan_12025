@@ -12,8 +12,7 @@ AFabricaBloqueCuadrados::AFabricaBloqueCuadrados()
 {
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-	// Aquí podrías inicializar cualquier propiedad específica de la fábrica de bloques cuadrados
-	// Por ejemplo, podrías establecer un tipo de material o una textura por defecto
+	
 }
 
 void AFabricaBloqueCuadrados::BeginPlay()

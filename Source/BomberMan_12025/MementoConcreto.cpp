@@ -3,6 +3,7 @@
 
 #include "MementoConcreto.h"
 #include "IOriginandor.h"
+#include "Bloque.h"
 
 // Sets default values
 AMementoConcreto::AMementoConcreto()
@@ -28,9 +29,11 @@ void AMementoConcreto::Tick(float DeltaTime)
 
 void AMementoConcreto::RestaurarEstado(IIOriginandor* _originador)
 {
-	Originador = Cast<IIOriginandor>(_originador);
-	if (Originador)
+	if (!_originador) return;
+
+	ABloque* Bloque = Cast<ABloque>(_originador);
+	if (Bloque)
 	{
-		Originador->GuardarEstado(this);
+		Bloque->EstablecerVidas(Vidas);
 	}
 }

@@ -33,7 +33,8 @@ void ACuidador::Guardar(ABloque* _originador)
     {
         if (Memento)
         {
-            Memento->ConditionalBeginDestroy(); // Limpiar la memoria anterior
+            Memento->Destroy();
+            Memento = nullptr;
         }
         Memento = GetWorld()->SpawnActor<AMementoConcreto>(AMementoConcreto::StaticClass());
         _originador->GuardarEstado(Memento);

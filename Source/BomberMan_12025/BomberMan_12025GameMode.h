@@ -71,18 +71,6 @@ public:
 	class AMonedaPlatino* Platino;
 	void Monedas();
 
-public:
-/*
-	class ABloque* BloqueControlado;
-
-	class ACuidador* Cuidador;
-
-public:
-
-	void RestaurarBloque();
-	void GuardarJuego();
-	void CargarJuego();
-	*/
 };
 
 

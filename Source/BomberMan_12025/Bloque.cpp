@@ -35,7 +35,7 @@ ABloque::ABloque()
 void ABloque::BeginPlay()
 {
 	Super::BeginPlay();
-	// Crear mi propio cuidador
+
 	GuardadoCuidador = GetWorld()->SpawnActor<ACuidador>(ACuidador::StaticClass());
 	GuardadoCuidador->Guardar(this);
 
